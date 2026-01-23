@@ -1,0 +1,128 @@
+---
+title: "HEXCleanR Introduction"
+format:
+  md: default
+editor: source
+---
+
+## Hintergrund
+
+Ziel dieses Paketes `HEXCleanR` ist es, die effiziente Bereinigung der HEX-Daten zu unterstützen. Ebenfalls bietet `HEXCleanR` Funktionen, die den Klassifizierungsprozess unterstützen. Im folgenden werden die wichtigsten Funktionen des Paketes vorgestellt.
+
+  Ein besonderer Fokus von `HEXCleanR` liegt auf den sogenannten Cleaning-Helper-Funktionen. Diese Funktionen basieren auf dem Paket [`pointblank`](https://rstudio.github.io/pointblank/), das speziell für die Validierung und Qualitätssicherung von Daten entwickelt wurde. Der große Vorteil von `pointblank` ist seine modulare und flexible Struktur: Es lassen sich sehr einfach weitere Tests ergänzen und die Validierungsfunktionen funktionieren sowohl mit Data Frames als auch mit Datenbanktabellen, z.B. mit DuckDB. Mit dem sogenannten Agent-Objekt können systematisch und nachvollziehbar verschiedene Prüfungen durchgeführt werden. So unterstützt `pointblank` dabei, die Datenqualität nachhaltig und effizient sicherzustellen.
+
+  Standardmäßig wird von pointblank ein Report mit Badges im Viewer ausgegeben (Abb.1). Dieser sieht weißt die folgenden Parameter auf:
+
+- **Step Index**: laufende Nummer des Prüfschritts  
+- **Validation Function**: verwendete Validierungsfunktion (z. B. `col_exists`, `col_vals_in_set`)  
+- **Columns**: betroffene Spalte(n)  
+- **Values**: Anzahl geprüfter Werte  
+- **Mutation**: zeigt, ob vor der Prüfung Transformationen durchgeführt wurden  
+- **Evaluation**: Status, ob der Check erfolgreich evaluiert wurde  
+- **Passed**: Anzahl der Werte, die bestanden haben  
+- **Failed**: Anzahl der Werte, die nicht bestanden haben  
+- **W / S / N**: Schwellenstatus – **Warn**, **Stop**, **Notify**  
+- **CSV**: Option, die Ergebnisse als CSV herunterzuladen 
+
+Abb. 1: Beispiel eines pointblank Agent-Reports  
+<img src="https://rstudio.github.io/pointblank/reference/figures/agent_report.png" alt="Beispiel eines pointblank Agent-Reports" width="700"/>
+
+
+## `check_organisation`
+
+Die Funktion `check_organisation` dient dazu, die Spalte mit Organisationsnamen in einem Datensatz systematisch auf typische Fehlerquellen zu überprüfen. Dazu zählen beispielsweise fehlende Werte (NAs), unerlaubte Sonderzeichen, oder fehlerhafte Trennzeichen. Die Funktion gibt einen sogenannten "*Agenten*" zurück, der eine Übersicht über alle gefundenen Probleme liefert und es ermöglicht, gezielt fehlerhafte Zeilen zu extrahieren. So unterstützt `check_organisation` dabei, die Datenqualität im Vorfeld von Analysen oder Klassifizierungen sicherzustellen und notwendige Korrekturen effizient vorzunehmen.
+
+```{r check-wd}
+#| eval: false
+#| include: false
+setwd("vignettes")
+getwd()
+```
+
+Bevor wir die Funktion `check_organisation` anwenden, schauen wir uns zunächst unsere Beispieldaten an. Sie sind reichlich unrealistisch, aber genügen, um die Funktionsweise der Funktion `check_organisation` zu verstehen.
+
+```{r check-data}
+library(HEXCleanR)
+library(knitr)
+
+test_data <- read.csv("data/test_data_organisation.csv", stringsAsFactors = FALSE)
+knitr::kable(head(test_data, 10), caption = "Beispieldaten (erste 10 Zeilen)")
+```
+
+Im folgenden spezifieren wir die Funktion `check_organisation` anhand unserer Beispielsdaten.
+
+```{r check-organisation}
+#| echo: true       # Code zeigen
+#| results: false    # Konsolen-Output zeigen
+#| include: true    # Chunk-Inhalt ins Dokument übernehmen
+#| warning: false
+#| message: false
+#| 
+agent <- check_organisation(test_data, organisation_col = "organisation")
+```
+
+Der Viewer zeigt uns einen Report (Abb. 2) , der uns eine Übersicht über die vorgenommenen Prüfungen liefert. Rot markierte Prüfungen bedeuten, dass diese Prüfung nicht bestanden hat. Grün markierte Prüfungen bedeuten, dass diese Prüfung bestanden hat. Gelb markierte Prüfungen bedeuten, dass diese Prüfung mit einer Warnung beendet wurde. Im Detail sehen wir folgendes: 
+
+- **Separator-Check**: Prüft, ob das Trennzeichen ";" korrekt verwendet wird. Es ist erlaubt, dass NAs enthalten sind. Zwei Zeilen haben den Test nicht bestanden.
+- **Or-Check**: Prüft, ob das Sonderzeichen "|" enthalten ist. Es ist erlaubt, dass NAs enthalten sind. Eine Zeile hat den Test nicht bestanden.
+- **Greater-Check**: Prüft, ob das Sonderzeichen ">" enthalten ist. Es ist erlaubt, dass NAs enthalten sind. Zwei Zeilen haben den Test nicht bestanden.
+- **Length-Check**: Prüft, ob die Länge der Zeichenkette der Variable Organisation kleiner oder gleich 1000 ist. Es ist erlaubt, dass NAs enthalten sind. Zwei Zeilen haben den Test nicht bestanden.
+- **Squished-Check**: Prüft, ob überflüssige Leerzeichen enthalten sind. Es ist erlaubt, dass NAs enthalten sind. Drei Zeilen haben den Test nicht bestanden.
+- **Non-Organisation-Check**: Prüft, ob Begriffe wie Master oder Bachelor in den Organisationen enthalten sind. Es ist erlaubt, dass NAs enthalten sind. Drei Zeilen haben den Test nicht bestanden.
+
+Abb. 2: Agent-Report der Funktion `check_organisation`  
+<img src="img/example_agent_organisation_check.png" alt="Beispiel Agent-Report check_organisation" width="700"/>
+
+Jede Menge Probleme 😄. Wir können wir nun aber sehen, welche Zeilen genau die Probleme verursacht haben. Dazu verwenden wir die Funktion `get_data_extracts` des `pointblank` Paketes. Wir schauen uns z.B. die Werte der Variable Organisation der Zeilen an, die den Test des Separator-Checks (Step 1) nicht bestanden haben.
+
+```{r get-data-extracts-1}
+#| warning: false
+#| message: false
+
+library(pointblank)
+library(dplyr)
+
+get_data_extracts(agent, i = 1) |> pull(organisation)
+```
+
+Ebenso können wir auch alle Werte der Variable Organisation jener Zeilen ansehen, die in einem der Steps ein Fail verursacht haben:
+
+```{r get-data-extracts-2}
+agent %>% 
+  get_data_extracts() %>% 
+  purrr::map(~ dplyr::pull(.x, organisation))
+```
+
+## `check_db`
+
+Die Funktion `check_db` dient dazu, die DB auf definierte Qualitätsregeln zu überprüfen. Diese Regeln sind derzeit:
+
+- Alle erwarteten Spaltennamen sind im Datensatz vorhanden.
+- Werte in der Spalte `hochschule` liegen in der erlaubten Wertemenge.
+- Werte in der Spalte `hochschule_kurz` liegen in der erlaubten Wertemenge.
+- Die Länge der Zeichenkette der Variable `kursbeschreibung` ist mindestens 20 Zeichen.
+
+Wir nehmen wieder unsere - etwas realitätsfernen Daten - Beispieldaten und machen damit einen DB-Check.
+
+```{r check-db}
+#| echo: true       # Code zeigen
+#| results: false    # Konsolen-Output zeigen
+#| include: true    # Chunk-Inhalt ins Dokument übernehmen
+#| warning: false
+#| message: false
+#| 
+agent <- check_db(test_data)
+```
+
+Wieder sehen wir den nun uns schob bekannten Report (Abb. 3), der uns eine Übersicht über die vorgenommenen Prüfungen liefert. Da die testdaten kaum der Realität eines db-datensatzes entsprechen, ist die Anzahl der Fehler relativ hoch. Es fehlen die meisten der erwarteten Spalten.
+
+Abb. 3: Die ersten 10 Steps des Agent-Reports der Funktion `check_db`  
+<img src="img/example_agent_db_check.png" alt="Beispiel Agent-Report check_organisation" width="700"/>
+
+Weiter unten im Report (nicht in der Abbildung dargestellt) finden die Prüfungen (Step 47), ob die Werte in der Spalte `hochschule` in der erlaubten Wertemenge liegen. Bei sechs Zeilen war dies nicht der Fall. Wir wollen nun sehen, welche Werte in der Spalte `hochschule` nicht in der erlaubten Wertemenge liegen.
+
+```{r get-data-extracts-3}
+#| warning: false
+#| message: false
+get_data_extracts(agent, i = 47) |> pull(hochschule)
+```

@@ -1,0 +1,18 @@
+Package: HEXCleanR
+Title: Werkzeuge zur Datenbereinigung im HEX-Projekt
+Version: 0.5.13
+Authors@R: 
+    person("Malte", "Hückstädt", , "maltehueckstaedt@stifterverband.de", role = c("aut", "cre"))
+Description: Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a. insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+URL: http://srv-data01:30080/hex/hexcleanr
+RoxygenNote: 7.3.3
+Depends: R (>= 4.1.0)
+Imports: 
+    dplyr,
+    pointblank (>= 0.12.2.9000), 
+    rlang,
+    stringr,
+    reticulate

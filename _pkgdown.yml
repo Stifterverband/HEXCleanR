@@ -1,0 +1,4 @@
+template:
+  bootstrap: 5
+  package_logo:
+    src: man/figures/HEXCleanR_Logo.svg
