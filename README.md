@@ -8,26 +8,40 @@ Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bere
 
 `HEXCleanR` kann folgendermaßen installiert werden:
 
+Installiere zuerst das Hilfspaket `remotes`, falls noch nicht vorhanden:
+
+```r
+install.packages("remotes")
+```
+
+Installation von der öffentlichen GitHub-Repository:
+
+```r
+remotes::install_github("maltehueckstaedt/HEXCleanR")
+```
+
+Paket aktualisieren: Einfach den Installationsbefehl erneut ausführen, um die neueste Version von GitHub zu installieren:
+
+```r
+remotes::install_github("maltehueckstaedt/HEXCleanR")
+```
+
+Installation eines bestimmten Branches oder Commits:
+
+```r
+remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
+```
+
+Alternative: Installation vom internen Git-Server (bestehende Anleitung)
+
 ```r
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr")
 ```
 
-### Paket-Update: Wie aktualisiere ich HEXCleanR?
-
-Wenn du bereits eine ältere Version von `HEXCleanR` installiert hast und auf die neueste Version updaten möchtest, kannst du den Installationsbefehl mit dem Argument `force = TRUE` ausführen. Dadurch wird die aktuellste Version von GitHub installiert und die alte Version überschrieben:
+Wenn das Paket vom internen Server mit Überschreiben/Erzwungener Neuinstallation installiert werden soll, kann `force = TRUE` verwendet werden:
 
 ```r
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
-```
-
-Wenn das Paket aus einem bestimmten Branch installiert werden soll, geht dies so:
-
-```r
-remotes::install_git(
-  url = "http://srv-data01:30080/hex/hexcleanr",
-  ref = "dev",
-  force = TRUE
-)
 ```
 
 ## Dokumentation
