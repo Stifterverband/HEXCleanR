@@ -1,88 +1,66 @@
-#' Checkt auf auffällige Änderungen der Anzahl einzigartiger Werte einer Variablen zwischen Gruppen
+#' Prüft Distinct-Werte-Änderungen für eine spezifische Variable
 #'
-#' Diese Funktion dient der Qualitäts- und Plausibilitätskontrolle einer Variable, indem sie
-#' prüft, ob sich die Anzahl einzigartiger Werte (z. B. Organisationen, Sprachen,
-#' Studiengänge) zwischen Gruppen (typischerweise Semestern oder Jahre) auffällig
-#' verändert. Ziel ist das frühzeitige Erkennen potenziell fehlerhafter Daten 
-#' (z. B. unvollständiges Scraping, fehlerhafte Joins).
+#' Berechnet die Anzahl eindeutiger Werte pro Gruppe und vergleicht diese mit dem Median
+#' aller Gruppen, um Ausreißer zu identifizieren.
 #'
-#' @param data Ein `data.frame` oder `tibble` mit den zu prüfenden Daten.
-#' @param value_col Ungequoteter Spaltenname: Spalte, deren Anzahl einzigartiger Werte
-#'   geprüft werden soll (z. B. Organisation, Semestern).
-#' @param group_col Ungequoteter Spaltenname: Gruppierungsvariable (z. B. Semester, Jahr).
-#' @param threshold Numerischer Schwellenwert für den relativen Vergleich.
-#'   Ein Wert von `0.75` entspricht einer erlaubten Abweichung von bis zu 25%.
+#' @param data Ein `data.frame` oder `tibble`.
+#' @param group_col Die Gruppierungsvariable (ungequotet, z.B. semester).
+#' @param target_col Die zu prüfende Variable (ungequotet).
+#' @param threshold_low Unterer Schwellenwert (Standard: 0.70).
+#' @param threshold_high Oberer Schwellenwert (Standard: 1.50).
+#' @param min_distinct Mindestanzahl an Distinct-Werten im Median (Standard: 5).
 #'
-#' @details
-#' Je nach Anzahl der Gruppen wird automatisch zwischen zwei Prüfmodi unterschieden:
-#' - mehr als 3 Gruppen: Plausibilitätscheck auf harte Sprünge mittels relativem Vergleich
-#'   zum Maximum.
-#' - weniger/gleich 3 Gruppen: Stabilitätscheck mittels Vergleich zum Durchschnitt.
-#'
-#' Die Funktion zählt pro Gruppe die Anzahl einzigartiger Werte in `value_col`.
-#' Bei nur zwei Gruppen wird geprüft, ob eine Gruppe deutlich vom Maximum abweicht
-#' (harter Sprung). Bei drei oder mehr Gruppen wird geprüft, ob einzelne Gruppen
-#' deutlich unter dem durchschnittlichen Niveau liegen.
-#'
-#' Die Funktion ist explizit als Plausibilitäts- und Fehlerdetektor konzipiert und
-#' nicht als inferenzstatistisches Verfahren.
-#'
-#' @return Ein `tibble` mit folgenden Spalten:
-#' - `grp_val`: Gruppierungswert (Werte aus `group_col`).
-#' - `n_distinct`: Anzahl einzigartiger Werte in `value_col` je Gruppe.
-#' - `rel_change`: Relativer Vergleichswert (zur Referenz oder zum Durchschnitt).
-#' - `flagged`: Logisch, ob eine auffällige Abweichung vorliegt.
-#'@examples
-#' \dontrun{
-#'   check_distinct_level_change(
-#'     db_data_universitaet_jena,
-#'     organisation,
-#'     semester,
-#'     threshold = 0.75
-#'   )
-#' }
-#' @importFrom dplyr filter group_by summarise mutate n_distinct
-#' @importFrom rlang ensym
-#' @importFrom tibble tibble
+#' @return Ein `tibble` mit den Ergebnissen, falls Abweichungen gefunden wurden.
 #' @export
-check_distinct_level_change <- function(data, value_col, group_col, threshold = 0.75) {
-  val <- rlang::ensym(value_col)
-  grp <- rlang::ensym(group_col)
+check_distinct_level_change <- function(data, 
+                                        group_col, 
+                                        target_col, 
+                                        threshold_low = 0.70, 
+                                        threshold_high = 1.50, 
+                                        min_distinct = 5) {
+  
+  group_sym <- rlang::ensym(group_col)
+  target_sym <- rlang::ensym(target_col)
+  target_name <- rlang::as_string(target_sym)
 
+  # 1. Berechnung der Unique-Stats pro Gruppe
   stats <- data |>
-    dplyr::filter(!is.na(!!grp), !is.na(!!val)) |>
-    dplyr::group_by(grp_val = !!grp) |>
-    dplyr::summarise(n_distinct = dplyr::n_distinct(!!val), .groups = "drop")
+    dplyr::filter(!is.na(!!group_sym), !is.na(!!target_sym)) |>
+    dplyr::group_by(gruppe = !!group_sym) |>
+    dplyr::summarise(n_unique = dplyr::n_distinct(!!target_sym), .groups = "drop")
 
-  # ⛔ Abbruch bei komplett leeren Spalten
-  if (nrow(stats) == 0) {
-    return(
-      tibble::tibble(
-        grp_val = NA,
-        n_distinct = 0,
-        rel_change = 0,
-        flagged = FALSE
-      )
-    )
+  if (nrow(stats) < 2) {
+    message("Zu wenige Gruppen für einen Vergleich.")
+    return(invisible(dplyr::tibble()))
   }
 
-  n_groups <- nrow(stats)
+  # 2. Median-Referenz berechnen
+  unique_med <- median(stats$n_unique, na.rm = TRUE)
 
-  if (n_groups < 3) {
-    ref <- max(stats$n_distinct, na.rm = TRUE)
-    stats <- stats |>
-      dplyr::mutate(
-        rel_change = ifelse(ref == 0, 0, n_distinct / ref),
-        flagged = rel_change < threshold & n_distinct != ref
-      )
-  } else {
-    avg <- mean(stats$n_distinct, na.rm = TRUE)
-    stats <- stats |>
-      dplyr::mutate(
-        rel_change = ifelse(avg == 0, 0, n_distinct / avg),
-        flagged = rel_change < threshold & n_distinct != avg
-      )
+  # Check auf Mindestkomplexität
+  if (unique_med < min_distinct) {
+    return(invisible(dplyr::tibble()))
   }
 
-  stats
+  # 3. Abweichungen identifizieren
+  res <- stats |>
+    dplyr::mutate(
+      variable = target_name,
+      unique_med = unique_med,
+      faktor = round(n_unique / unique_med, 2),
+      status = dplyr::case_when(
+        faktor < threshold_low  ~ "negativ abweichend",
+        faktor > threshold_high ~ "positiv abweichend",
+        TRUE ~ "NORMAL"
+      )
+    ) |>
+    dplyr::filter(status != "NORMAL") |>
+    dplyr::select(status, variable, group_value = gruppe, unique_found = n_unique, unique_med, faktor)
+
+  if (nrow(res) == 0) {
+    message(paste0("✅ Variable '", target_name, "': Keine Auffälligkeiten."))
+    return(invisible(res))
+  }
+
+  return(res)
 }
