@@ -2,60 +2,34 @@
 % Please edit documentation in R/check_distinct_level_change.r
 \name{check_distinct_level_change}
 \alias{check_distinct_level_change}
-\title{Checkt auf auffällige Änderungen der Anzahl einzigartiger Werte einer Variablen zwischen Gruppen}
+\title{Prüft Distinct-Werte-Änderungen für eine spezifische Variable}
 \usage{
-check_distinct_level_change(data, value_col, group_col, threshold = 0.75)
+check_distinct_level_change(
+  data,
+  group_col,
+  target_col,
+  threshold_low = 0.7,
+  threshold_high = 1.5,
+  min_distinct = 5
+)
 }
 \arguments{
-\item{data}{Ein \code{data.frame} oder \code{tibble} mit den zu prüfenden Daten.}
+\item{data}{Ein \code{data.frame} oder \code{tibble}.}
 
-\item{value_col}{Ungequoteter Spaltenname: Spalte, deren Anzahl einzigartiger Werte
-geprüft werden soll (z. B. Organisation, Semestern).}
+\item{group_col}{Die Gruppierungsvariable (ungequotet, z.B. semester).}
 
-\item{group_col}{Ungequoteter Spaltenname: Gruppierungsvariable (z. B. Semester, Jahr).}
+\item{target_col}{Die zu prüfende Variable (ungequotet).}
 
-\item{threshold}{Numerischer Schwellenwert für den relativen Vergleich.
-Ein Wert von \code{0.75} entspricht einer erlaubten Abweichung von bis zu 25\%.}
+\item{threshold_low}{Unterer Schwellenwert (Standard: 0.70).}
+
+\item{threshold_high}{Oberer Schwellenwert (Standard: 1.50).}
+
+\item{min_distinct}{Mindestanzahl an Distinct-Werten im Median (Standard: 5).}
 }
 \value{
-Ein \code{tibble} mit folgenden Spalten:
-\itemize{
-\item \code{grp_val}: Gruppierungswert (Werte aus \code{group_col}).
-\item \code{n_distinct}: Anzahl einzigartiger Werte in \code{value_col} je Gruppe.
-\item \code{rel_change}: Relativer Vergleichswert (zur Referenz oder zum Durchschnitt).
-\item \code{flagged}: Logisch, ob eine auffällige Abweichung vorliegt.
-}
+Ein \code{tibble} mit den Ergebnissen, falls Abweichungen gefunden wurden.
 }
 \description{
-Diese Funktion dient der Qualitäts- und Plausibilitätskontrolle einer Variable, indem sie
-prüft, ob sich die Anzahl einzigartiger Werte (z. B. Organisationen, Sprachen,
-Studiengänge) zwischen Gruppen (typischerweise Semestern oder Jahre) auffällig
-verändert. Ziel ist das frühzeitige Erkennen potenziell fehlerhafter Daten
-(z. B. unvollständiges Scraping, fehlerhafte Joins).
-}
-\details{
-Je nach Anzahl der Gruppen wird automatisch zwischen zwei Prüfmodi unterschieden:
-\itemize{
-\item mehr als 3 Gruppen: Plausibilitätscheck auf harte Sprünge mittels relativem Vergleich
-zum Maximum.
-\item weniger/gleich 3 Gruppen: Stabilitätscheck mittels Vergleich zum Durchschnitt.
-}
-
-Die Funktion zählt pro Gruppe die Anzahl einzigartiger Werte in \code{value_col}.
-Bei nur zwei Gruppen wird geprüft, ob eine Gruppe deutlich vom Maximum abweicht
-(harter Sprung). Bei drei oder mehr Gruppen wird geprüft, ob einzelne Gruppen
-deutlich unter dem durchschnittlichen Niveau liegen.
-
-Die Funktion ist explizit als Plausibilitäts- und Fehlerdetektor konzipiert und
-nicht als inferenzstatistisches Verfahren.
-}
-\examples{
-\dontrun{
-  check_distinct_level_change(
-    db_data_universitaet_jena,
-    organisation,
-    semester,
-    threshold = 0.75
-  )
-}
+Berechnet die Anzahl eindeutiger Werte pro Gruppe und vergleicht diese mit dem Median
+aller Gruppen, um Ausreißer zu identifizieren.
 }

@@ -2,46 +2,62 @@
 % Please edit documentation in R/check_distinct_level_change_df.r
 \name{check_distinct_level_change_df}
 \alias{check_distinct_level_change_df}
-\title{Wendet die Plausibilitätsprüfung auf alle Spalten eines Datensatzes an.}
+\title{Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes}
 \usage{
-check_distinct_level_change_df(data, group_col, threshold = 0.75)
+check_distinct_level_change_df(
+  data,
+  group_col,
+  threshold_low = 0.7,
+  threshold_high = 1.5,
+  min_distinct = 5
+)
 }
 \arguments{
 \item{data}{Ein \code{data.frame} oder \code{tibble} mit den zu prüfenden Daten.}
 
-\item{group_col}{Ungequoteter Spaltenname: Gruppierungsvariable, die für alle
-Checks als Referenz verwendet wird (z. B. \code{semester}).}
+\item{group_col}{Ungequoteter Spaltenname; Gruppierungsvariable (z. B. \code{semester}).
+Die Funktion verwendet \code{rlang::ensym()} zur Auswertung.}
 
-\item{threshold}{Numerischer Schwellenwert für den relativen Vergleich, wird
-direkt an \code{check_distinct_level_change()} weitergegeben.}
+\item{threshold_low}{Numerischer unterer Schwellenwert für die Prüfung (z. B. 0.70).}
+
+\item{threshold_high}{Numerischer oberer Schwellenwert für die Prüfung (z. B. 1.50).}
+
+\item{min_distinct}{Ganzzahliger Minimalwert für den Median der Anzahl unterschiedlicher
+Werte, unterhalb dessen eine Variable nicht geprüft wird (Standard: 5).}
 }
 \value{
-Ein \code{tibble}, das die gebündelten Ergebnisse von
-\code{check_distinct_level_change()} für alle geprüften Variablen enthält.
-Zurückgegeben werden nur die Kombinationen, bei denen \code{flagged == TRUE} ist
-(also auffällige Abweichungen). Das Ergebnis enthält mindestens die
-Spalten \code{variable}, \code{grp_val}, \code{n_distinct}, \code{rel_change} und \code{flagged}.
-Falls keine auffälligen Abweichungen gefunden werden, wird ein leeres
-\code{tibble} zurückgegeben und eine entsprechende Erfolgsmeldung ausgegeben.
+Ein \code{tibble} mit den markierten Abweichungen. Die Ausgabe enthält
+mindestens die Spalten:
+\itemize{
+\item \code{status}: Textueller Status (\verb{negativ abweichend}, \verb{positiv abweichend}, \code{NORMAL})
+\item \code{variable}: Name der geprüften Variable
+\item \code{semester}: Wert der Gruppierungsvariable (Originalname in der Ausgabe \code{semester})
+\item \code{unique_found}: Gefundene Anzahl eindeutiger Werte in der Gruppe
+\item \code{unique_med}: Median der eindeutigen Werte über alle Gruppen
+\item \code{faktor}: Verhältnis \code{unique_found / unique_med} (gerundet)
+}
+
+Wenn keine Auffälligkeiten gefunden werden, gibt die Funktion ein leeres
+\code{tibble} (invisibly) zurück und schreibt eine Erfolgsmeldung.
 }
 \description{
-Diese Hilfsfunktion wendet \code{check_distinct_level_change()} für alle
-Variablen eines Datensatzes an, außer für die angegebene Gruppierungsvariable.
-So kann in einem Schritt für alle Variablen eines Datensatzes geprüft werden, ob sich die
-Anzahl einzigartiger Werte zwischen Gruppen (z. B. Semestern) auffällig
-verändert.
+Diese Hilfsfunktion ruft intern für jede Nicht-Gruppierungsvariable
+\code{check_distinct_level_change()} auf und fasst die Ergebnisse zu einem
+gemeinsamen \code{tibble} zusammen. Standardmäßig werden nur die Einträge
+zurückgegeben, die als auffällig markiert (\code{flagged == TRUE}) sind.
 }
 \details{
-Alle Spalten in \code{data}, die nicht \code{group_col} entsprechen, werden als
-\code{value_col} nacheinander an \code{check_distinct_level_change()} übergeben.
-Die Ergebnisse werden mit \code{purrr::map_dfr()} zu einem gemeinsamen Tibble
-zusammengeführt und erhalten zusätzlich eine Spalte \code{variable}, die den
-Namen der jeweils geprüften Spalte enthält.
+Für jede Spalte in \code{data}, die nicht der \code{group_col} entspricht,
+wird die Anzahl unterschiedlicher Werte pro Gruppe berechnet. Als Referenz
+dient der Median der Anzahl unterschiedlicher Werte über alle Gruppen.
+Liegt die relative Abweichung vom Median außerhalb der Intervalle
+\code{threshold_low} .. \code{threshold_high}, wird dieser Fall als auffällig
+markiert.
 }
 \examples{
 \dontrun{
-  check_distinct_level_change_df(db_data_universitaet_jena, 
-                                 semester)
+  check_distinct_level_change_df(db_data_universitaet_jena, semester)
+  check_distinct_level_change_df(my_data, semester, threshold_low = 0.6, threshold_high = 1.4)
 }
 
 }

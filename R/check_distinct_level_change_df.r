@@ -1,4 +1,4 @@
-#' Prüft Distinct-Level-Änderungen für alle Variablen eines Datensatzes
+#' Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes
 #'
 #' Diese Hilfsfunktion ruft intern für jede Nicht-Gruppierungsvariable
 #' `check_distinct_level_change()` auf und fasst die Ergebnisse zu einem
