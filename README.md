@@ -15,26 +15,27 @@ Installiere das Hilfspaket `remotes`, falls noch nicht vorhanden:
 install.packages("remotes")
 ```
 
-**2. Installation vom internen Git-Server:**
+
+**2. Installation von GitHub:**
 
 ```r
-remotes::install_git("http://srv-data01:30080/hex/hexcleanr")
+remotes::install_github("Stifterverband/HEXCleanR")
 ```
 
 **3. Paket aktualisieren:**
 
-Einfach den Installationsbefehl erneut ausführen, um die neueste Version zu erhalten.
+Führe den Installationsbefehl erneut aus, um die neueste Version zu erhalten.
 
 **4. Installation eines bestimmten Branches/Commits:**
 
 ```r
-remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
+remotes::install_github("Stifterverband/HEXCleanR", ref = "branchname")
 ```
 
 Mit `force = TRUE` kann eine erzwungene Neuinstallation erfolgen:
 
 ```r
-remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
+remotes::install_github("Stifterverband/HEXCleanR", force = TRUE)
 ```
 
 ---
@@ -67,7 +68,7 @@ Alle Funktionen sind so gestaltet, dass sie sich flexibel in bestehende Workflow
 
 ## 📚 Dokumentation
 
-Die Dokumentation wird zukünftig als GitLab-Pages bereitgestellt. Bis dahin finden Sie die aktuelle `.pdf`-Dokumentation [hier](docs/manual).
+Die Dokumentation wird zukünftig als GitHub-Pages bereitgestellt. Bis dahin finden Sie die aktuelle `.pdf`-Dokumentation [hier](docs/manual).
 
 ---
 
@@ -75,20 +76,4 @@ Die Dokumentation wird zukünftig als GitLab-Pages bereitgestellt. Bis dahin fin
 
 **Fehlermeldung bei der Installation?**
 
-```
-Fehler: Failed to install 'unknown package' from Git:
-  Error in 'git2r_remote_ls': too many redirects or authentication replays
-```
-
-**Lösung:**
-
-```r
-# R Session neu starten
-.rs.restartR()
-
-# Danach Installation erneut versuchen (es sollte nach Passwort fragen):
-remotes::install_git(
-  "http://benutzerkuerzel@srv-data01:30080/hex/hexcleanr",
-  git = "external"
-) 
-```
+Bitte prüfe, ob das Paket `remotes` installiert ist und du eine aktuelle R-Version verwendest. Bei Problemen mit GitHub-Authentifizierung ggf. ein Personal Access Token (PAT) nutzen.
