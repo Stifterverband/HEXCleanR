@@ -1,6 +1,6 @@
 Package: HEXCleanR
 Title: Werkzeuge zur Datenbereinigung im HEX-Projekt
-Version: 0.5.14
+Version: 0.5.16
 Authors@R: 
     person("Malte", "Hückstädt", , "maltehueckstaedt@stifterverband.de", role = c("aut", "cre"))
 Description: Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a. insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.

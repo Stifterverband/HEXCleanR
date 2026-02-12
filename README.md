@@ -1,49 +1,94 @@
+
 # HEXCleanR <img src="man/figures/HEXCleanR_Logo.svg" align="right" height="139" />
 
-## Beschreibung 
+Willkommen bei **HEXCleanR** – Dem Werkzeugkasten für die Aufbereitung und Bereinigung von HEX-Daten.
 
-Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a. insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.
+---
 
-## Installation
+## 🚀 Schnellstart
 
-`HEXCleanR` kann folgendermaßen installiert werden:
+**1. Voraussetzungen:**
 
-Installiere zuerst das Hilfspaket `remotes`, falls noch nicht vorhanden:
+Installiere das Hilfspaket `remotes`, falls noch nicht vorhanden:
 
 ```r
 install.packages("remotes")
 ```
 
-Installation von der öffentlichen GitHub-Repository:
-
-```r
-remotes::install_github("maltehueckstaedt/HEXCleanR")
-```
-
-Paket aktualisieren: Einfach den Installationsbefehl erneut ausführen, um die neueste Version von GitHub zu installieren:
-
-```r
-remotes::install_github("maltehueckstaedt/HEXCleanR")
-```
-
-Installation eines bestimmten Branches oder Commits:
-
-```r
-remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
-```
-
-Alternative: Installation vom internen Git-Server (bestehende Anleitung)
+**2. Installation vom internen Git-Server:**
 
 ```r
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr")
 ```
 
-Wenn das Paket vom internen Server mit Überschreiben/Erzwungener Neuinstallation installiert werden soll, kann `force = TRUE` verwendet werden:
+**3. Paket aktualisieren:**
+
+Einfach den Installationsbefehl erneut ausführen, um die neueste Version zu erhalten.
+
+**4. Installation eines bestimmten Branches/Commits:**
+
+```r
+remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
+```
+
+Mit `force = TRUE` kann eine erzwungene Neuinstallation erfolgen:
 
 ```r
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
 ```
 
-## Dokumentation
+---
 
-Die Dokumentation von `HEXcleanR` soll mittelfristig als Gitlab-Pages bereitgestellt werden (Johannes eroiert das Feature für GitLab derzeit). Bis dahin kann die als `.pdf` vorliegende Dokumentation genutzt werden. Diese findest sich [hier](http://srv-data01:30080/hex/hexcleanr/-/raw/main/docs/manual/HEXCleanR_0.5.13.pdf?inline=false).
+## 📖 Was macht HEXCleanR?
+
+HEXCleanR bietet einen modularen Werkzeugkasten für die Datenbereinigung und -prüfung im Hochschulkontext. Die wichtigsten Funktionen im Überblick:
+
+- **Organisationsdaten prüfen & bereinigen:**
+  - `check_organisation()`: Prüft Organisationsangaben auf definierte Qualitätsregeln und gibt einen übersichtlichen Report aus.
+
+- **Kursdaten und Future Skills klassifizieren:**
+  - `classify_fs()`: Identifiziert und klassifiziert Future-Skills-Schlagwörter in Kursdaten mithilfe eines KI-Modells.
+  - get_unclassified_data(): Findet alle Kurse, die noch keiner Future-Skills-Kategorie zugeordnet wurden.
+
+- **Sprachklassifikation automatisieren:**
+  - `detect_lang_with_openai()`: Erkennt die Sprache von Texten (z. B. Kurstitel) automatisiert per OpenAI-API und ergänzt fehlende Werte.
+
+- **Datenqualität und Plausibilität prüfen:**
+  - `check_db()`: Führt umfassende Struktur-, Typ- und Plausibilitätsprüfungen für die aufbereiteten Daten durch.
+  - check_nas(): Visualisiert die NA-Konzentration pro Variable und Semester.
+
+- **Rohdaten vereinheitlichen & säubern:**
+  - `remove_semantic_na_values()`: Setzt zu kurze oder inhaltlich leere Texte auf NA.
+  - use_cleaning_template(): Erstellt ein individuelles Cleaning-Template für neue Universitäten/Projekte.
+
+Alle Funktionen sind so gestaltet, dass sie sich flexibel in bestehende Workflows integrieren lassen und die Nachvollziehbarkeit der Datenaufbereitung erhöhen.
+
+---
+
+## 📚 Dokumentation
+
+Die Dokumentation wird zukünftig als GitLab-Pages bereitgestellt. Bis dahin finden Sie die aktuelle `.pdf`-Dokumentation [hier](docs/manual).
+
+---
+
+## 🛠️ Problembehandlung
+
+**Fehlermeldung bei der Installation?**
+
+```
+Fehler: Failed to install 'unknown package' from Git:
+  Error in 'git2r_remote_ls': too many redirects or authentication replays
+```
+
+**Lösung:**
+
+```r
+# R Session neu starten
+.rs.restartR()
+
+# Danach Installation erneut versuchen (es sollte nach Passwort fragen):
+remotes::install_git(
+  "http://benutzerkuerzel@srv-data01:30080/hex/hexcleanr",
+  git = "external"
+) 
+```

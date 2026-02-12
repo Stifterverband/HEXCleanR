@@ -14,7 +14,7 @@ tools::checkRd("man/merge_and_join_classified_data.Rd")
 tools::checkRd("man/remove_semantic_na_values.Rd")
 tools::checkRd("man/get_unclassified_data.Rd")
 
-devtools::build_manual()
+devtools::build_manual(path = "docs/manual")
 
 deps <- renv::dependencies()
 deps$Package
