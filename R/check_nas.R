@@ -8,10 +8,6 @@
 #' @param data Ein data.frame oder tibble mit den zu analysierenden Daten.
 #' @param semester Unquoted Spaltenname mit Semester-Informationen (z.B. `WS 2019/20` oder `2019`).
 #' @return Ein `ggplot`-Objekt mit der Visualisierung der NA-Konzentration.
-#' @examples
-#' \dontrun{
-#' check_nas(df, semester = semester_col)
-#' }
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate across where pull
 #' @importFrom rlang enquo as_name

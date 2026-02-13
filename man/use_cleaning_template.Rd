@@ -20,10 +20,3 @@ benennt sie in \verb{data_preparation_<university_name>.R} um. Existiert unter
 diesem Namen bereits eine Datei, wird eine Warnung ausgegeben und die
 vorhandene Datei nicht überschrieben.
 }
-\examples{
-\dontrun{
-  # Legt die Datei R/data_preparation_Universitaet_Musterstadt.R an,
-  # sofern sie noch nicht existiert
-  use_cleaning_template("Universitaet_Musterstadt")
-}
-}

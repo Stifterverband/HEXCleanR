@@ -1,11 +1,17 @@
 # Beispielaufruf mit 3 Key-Variablen
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
 
+# install.packages("fs")
+
+# packageVersion("ellmer")
+# install.packages("roxygen2", type = "binary")
+
 getwd()
 devtools::document()
 devtools::install()
 devtools::document()
 devtools::load_all()
+devtools::check()
 
 tools::checkRd("man/check_organisation.Rd")
 tools::checkRd("man/check_db.Rd")
@@ -177,3 +183,5 @@ db_data_universitaet_jena  |>
 
 devtools::document()
 devtools::build_manual(path = "docs/manual")
+
+pkgdown::build_site()

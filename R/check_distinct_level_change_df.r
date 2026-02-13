@@ -32,11 +32,6 @@
 #' Wenn keine Auffälligkeiten gefunden werden, gibt die Funktion ein leeres
 #' `tibble` (invisibly) zurück und schreibt eine Erfolgsmeldung.
 #'
-#' @examples
-#' \dontrun{
-#'   check_distinct_level_change_df(db_data_universitaet_jena, semester)
-#'   check_distinct_level_change_df(my_data, semester, threshold_low = 0.6, threshold_high = 1.4)
-#' }
 #'
 #' @seealso \link{check_distinct_level_change}
 #'

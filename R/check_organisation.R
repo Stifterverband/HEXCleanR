@@ -25,11 +25,6 @@
 #' @return Ein `pointblank`-Agent-Objekt (invisible). Über
 #'   `pointblank::get_agent_report()` kann der Report auch separat erzeugt werden.
 #'
-#' @examples
-#' \dontrun{
-#'   agent <- check_organisation(test_data, organisation_col = "organisation")
-#'   pointblank::get_agent_report(agent)
-#' }
 #'
 #' @import pointblank
 #' @importFrom rlang ensym as_string

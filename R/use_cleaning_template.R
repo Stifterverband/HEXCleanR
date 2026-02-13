@@ -9,12 +9,6 @@
 #' @param university_name Zeichenkette mit dem Namen der Universität, für die ein Cleaning-Template erstellt werden soll.
 #' @return Unsichtbar der Pfad zur erstellten (oder bereits vorhandenen)
 #'   Datei.
-#' @examples
-#' \dontrun{
-#'   # Legt die Datei R/data_preparation_Universitaet_Musterstadt.R an,
-#'   # sofern sie noch nicht existiert
-#'   use_cleaning_template("Universitaet_Musterstadt")
-#' }
 #' @export
 use_cleaning_template <- function(university_name) {
   if (missing(university_name) || !nzchar(university_name)) {

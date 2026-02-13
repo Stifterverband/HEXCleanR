@@ -5,8 +5,6 @@
 ##' @param input_path Pfad zur Eingabe-JSON-Datei.
 ##' @param output_path Pfad zur Ausgabedatei im RDS-Format.
 ##' @return Das eingelesene Tibble.
-##' @examples
-##' json_to_rds("data/test_db.json", "data/test_db.rds")
 ##' @importFrom jsonlite fromJSON
 ##' @importFrom tibble as_tibble
 ##' @importFrom readr write_rds

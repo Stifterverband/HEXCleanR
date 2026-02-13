@@ -46,10 +46,3 @@ Die folgenden Prüfungen werden durchgeführt:
 \item Warnung bei Abschluss-Begriffen (z. B. Bachelor, Master, Diplom).
 }
 }
-\examples{
-\dontrun{
-  agent <- check_organisation(test_data, organisation_col = "organisation")
-  pointblank::get_agent_report(agent)
-}
-
-}

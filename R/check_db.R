@@ -38,11 +38,6 @@
 #' @return Ein einzelnes `ptblank_agent`-Objekt mit den Prüfergebnissen
 #' Zusätzlich wird ein HTML-Report im Viewer angezeigt.
 #'
-#' @examples
-#' \dontrun{
-#'   res <- check_db(test_data)
-#'   res
-#' }
 #'
 #' @import pointblank
 #' @importFrom stringr str_match str_starts str_remove_all str_split

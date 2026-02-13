@@ -54,13 +54,6 @@ Liegt die relative Abweichung vom Median außerhalb der Intervalle
 \code{threshold_low} .. \code{threshold_high}, wird dieser Fall als auffällig
 markiert.
 }
-\examples{
-\dontrun{
-  check_distinct_level_change_df(db_data_universitaet_jena, semester)
-  check_distinct_level_change_df(my_data, semester, threshold_low = 0.6, threshold_high = 1.4)
-}
-
-}
 \seealso{
 \link{check_distinct_level_change}
 }

@@ -19,12 +19,3 @@ Ein Character-Vektor, in dem zu kurze Texte durch \code{NA} ersetzt wurden.
 Diese Funktion ersetzt Einträge in einem Vektor von Texten durch \code{NA},
 wenn die Anzahl der Buchstaben (ohne Satzzeichen) kleiner als ein definierter Schwellenwert ist.
 }
-\examples{
-\dontrun{
-library(dplyr)   
-db_data_universitaet_jena  |>
-mutate(
-kursbeschreibung_cleaned = remove_semantic_na_values(kursbeschreibung, min_num_letters = 30)
-)
-}
-}

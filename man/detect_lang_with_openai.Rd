@@ -22,7 +22,7 @@ detect_lang_with_openai(
 \item{export_path}{Pfad zum Sicherheits-Export (RDS), der den aktuellen Fortschritt speichert.
 Standard ist "db_safety_export.rds".}
 
-\item{batch_size}{Anzahl der Titel pro API-Abfrage. Standard ist 100.}
+\item{batch_size}{Anzahl der Titel pro API-Abfrage. Standard ist 50.}
 }
 \value{
 Der ursprüngliche Dataframe, ergänzt um die vervollständigte Spalte \code{sprache_recoded}.

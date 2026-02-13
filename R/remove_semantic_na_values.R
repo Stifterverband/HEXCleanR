@@ -11,14 +11,6 @@
 #'
 #' @importFrom stringr str_replace_all
 #'
-#' @examples
-#' \dontrun{
-#' library(dplyr)   
-#' db_data_universitaet_jena  |>
-#' mutate(
-#' kursbeschreibung_cleaned = remove_semantic_na_values(kursbeschreibung, min_num_letters = 30)
-#' )
-#' }
 #' @export
 remove_semantic_na_values <- function(texts, min_num_letters = 20) {
   letters_only <- stringr::str_replace_all(texts, "[[:punct:]]", "")

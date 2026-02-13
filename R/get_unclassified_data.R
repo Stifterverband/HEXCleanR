@@ -20,14 +20,6 @@
 #' Wenn `db_data_path` `NULL` ist oder die Datei nicht existiert, werden alle Zeilen aus
 #' `raw_data` als unklassifiziert zurueckgegeben.
 #'
-#' @examples
-#' \dontrun{
-#'   unclassified <- get_unclassified_data(
-#'     raw_data = my_raw_data,
-#'     db_data_path = "path/to/classified_data.rds",
-#'     key_vars = c("titel", "nummer")
-#'   )
-#' }
 #'
 #' @importFrom dplyr select all_of distinct left_join filter across
 #' @keywords internal

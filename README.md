@@ -1,5 +1,5 @@
+# HEXcleanR <a href="https://github.com/Stifterverband/HEXCleanR"><img src="man/figures/HEXCleanR_Logo.png" align="right" height="138" alt="HEXCleanR website" /></a>
 
-# HEXCleanR <img src="man/figures/HEXCleanR_Logo.svg" align="right" height="139" />
 
 Willkommen bei **HEXCleanR** – Dem Werkzeugkasten für die Aufbereitung und Bereinigung von HEX-Daten.
 

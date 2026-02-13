@@ -20,8 +20,3 @@ Semester-Faktoren nach der darin enthaltenen vierstelligen Jahreszahl. Falls
 keine vierstellige Jahreszahl in der angegebenen Spalte gefunden wird,
 bricht die Funktion mit einer aussagekräftigen Fehlermeldung ab.
 }
-\examples{
-\dontrun{
-check_nas(df, semester = semester_col)
-}
-}

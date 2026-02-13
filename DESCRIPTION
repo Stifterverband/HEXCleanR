@@ -8,11 +8,20 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 URL: http://srv-data01:30080/hex/hexcleanr
-RoxygenNote: 7.3.3
+RoxygenNote: 7.3.3.9000
 Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
     pointblank (>= 0.12.2.9000), 
     rlang,
     stringr,
-    reticulate
+    reticulate,
+    ellmer,
+    ggplot2,
+    jsonlite,
+    magrittr,
+    naniar,
+    purrr,
+    readr,
+    tibble,
+    tidyr

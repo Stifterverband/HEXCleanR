@@ -31,14 +31,4 @@ Die Funktion prueft, ob fuer jede Zeile in \code{raw_data} keine Klassifizierung
 Wenn \code{db_data_path} \code{NULL} ist oder die Datei nicht existiert, werden alle Zeilen aus
 \code{raw_data} als unklassifiziert zurueckgegeben.
 }
-\examples{
-\dontrun{
-  unclassified <- get_unclassified_data(
-    raw_data = my_raw_data,
-    db_data_path = "path/to/classified_data.rds",
-    key_vars = c("titel", "nummer")
-  )
-}
-
-}
 \keyword{internal}

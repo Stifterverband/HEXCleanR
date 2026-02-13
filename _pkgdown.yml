@@ -1,4 +1,12 @@
+home:
+  sidebar:
+    logo:
+      src: man/figures/logo.png
+      width: 180
+url: "https://github.com/Stifterverband/HEXCleanR"
 template:
   bootstrap: 5
+
+figures:
   package_logo:
-    src: man/figures/HEXCleanR_Logo.svg
+    src: man/figures/HEXCleanR_Logo.png

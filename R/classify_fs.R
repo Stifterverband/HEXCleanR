@@ -32,15 +32,6 @@
 #' @return Data Frame mit allen Zeilen von `raw_data` und den ergänzten bzw.
 #'   aktualisierten Future-Skills-Klassifikationsspalten.
 #'
-#' @examples
-#' \dontrun{
-#'   raw_data_fs <- classify_fs(
-#'     raw_data   = raw_data_uni_musterstadt,
-#'     db_data_path = "C:/SV/HEX/Scraping/data/single_universities/Friedrich-Schiller-Universitaet_Jena/db_data_musterstadt.RDS", # optional
-#'     model_path = "Chernoffface/fs-setfit-multilable-model",
-#'     key_vars   = c("titel", "nummer")
-#'   )
-#' }
 #'
 #' @export
 classify_fs <- function(raw_data,

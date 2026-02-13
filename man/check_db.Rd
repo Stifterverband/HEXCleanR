@@ -48,10 +48,3 @@ festen Menge gehören, z. B. \code{"Vorlesung"}, \code{"Seminar"}, \code{"Übung
 bzw. \code{w} für Wintersemester).
 }
 }
-\examples{
-\dontrun{
-  res <- check_db(test_data)
-  res
-}
-
-}
