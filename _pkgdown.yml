@@ -6,4 +6,6 @@ home:
 url: "https://github.com/Stifterverband/HEXCleanR"
 template:
   bootstrap: 5
+  params:
+    extra_css: pkgdown/extra.css
 

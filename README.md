@@ -1,79 +1,41 @@
-# HEXcleanR <a href="https://github.com/Stifterverband/HEXCleanR"><img src="man/figures/HEXCleanR_Logo.png" align="right" height="138" alt="HEXCleanR website" /></a>
+# HEXcleanR <a href="https://github.com/Stifterverband/HEXCleanR"><img src="man/figures/HEXCleanR_Logo.png" align="right" height="120" style="float:right; height:120px;" alt="HEXCleanR website" /></a>
 
+HEXCleanR stellt Werkzeuge für die Aufbereitung und Bereinigung von Hochschul- und Future-Skills-Daten bereit. Das Paket bündelt wiederkehrende Arbeitsschritte, damit Analysen reproduzierbar und konsistent bleiben.
 
-Willkommen bei **HEXCleanR** – Dem Werkzeugkasten für die Aufbereitung und Bereinigung von HEX-Daten.
+## Installation
 
----
+### Voraussetzungen
 
-## 🚀 Schnellstart
-
-**1. Voraussetzungen:**
-
-Installiere das Hilfspaket `remotes`, falls noch nicht vorhanden:
+Stelle sicher, dass das Paket `remotes` installiert ist:
 
 ```r
 install.packages("remotes")
 ```
 
-
-**2. Installation von GitHub:**
+### Installation von GitHub
 
 ```r
 remotes::install_github("Stifterverband/HEXCleanR")
 ```
 
-**3. Paket aktualisieren:**
-
-Führe den Installationsbefehl erneut aus, um die neueste Version zu erhalten.
-
-**4. Installation eines bestimmten Branches/Commits:**
+Für einen bestimmten Branch oder Commit kann das Argument `ref` verwendet werden:
 
 ```r
 remotes::install_github("Stifterverband/HEXCleanR", ref = "branchname")
 ```
 
-Mit `force = TRUE` kann eine erzwungene Neuinstallation erfolgen:
+Ein erneuter Aufruf aktualisiert das Paket auf die aktuelle Version. Mit `force = TRUE` erzwingst du eine Neuinstallation.
 
-```r
-remotes::install_github("Stifterverband/HEXCleanR", force = TRUE)
-```
+## Funktionsüberblick
 
----
+HEXCleanR deckt zentrale Schritte der Datenbereinigung ab:
 
-## 📖 Was macht HEXCleanR?
+- **Organisationsdaten prüfen:** `check_organisation()` erzeugt Validierungsberichte auf Basis definierter Qualitätsregeln.
+- **Future-Skills-Klassifikation:** `classify_fs()` ordnet Texte Kategorien zu, `get_unclassified_data()` listet Einträge ohne Klassifikation auf.
+- **Sprach- und Inhaltsprüfung:** `detect_lang_with_openai()` ergänzt Sprachangaben, `remove_semantic_na_values()` markiert inhaltsleere Texte.
+- **Qualitätskontrollen:** `check_db()` führt Struktur- und Plausibilitätschecks durch, `check_nas()` visualisiert fehlende Werte.
+- **Projektvorbereitung:** `use_cleaning_template()` erstellt modulare Vorlagen für neue Datenquellen.
 
-HEXCleanR bietet einen modularen Werkzeugkasten für die Datenbereinigung und -prüfung im Hochschulkontext. Die wichtigsten Funktionen im Überblick:
+## Dokumentation
 
-- **Organisationsdaten prüfen & bereinigen:**
-  - `check_organisation()`: Prüft Organisationsangaben auf definierte Qualitätsregeln und gibt einen übersichtlichen Report aus.
-
-- **Kursdaten und Future Skills klassifizieren:**
-  - `classify_fs()`: Identifiziert und klassifiziert Future-Skills-Schlagwörter in Kursdaten mithilfe eines KI-Modells.
-  - get_unclassified_data(): Findet alle Kurse, die noch keiner Future-Skills-Kategorie zugeordnet wurden.
-
-- **Sprachklassifikation automatisieren:**
-  - `detect_lang_with_openai()`: Erkennt die Sprache von Texten (z. B. Kurstitel) automatisiert per OpenAI-API und ergänzt fehlende Werte.
-
-- **Datenqualität und Plausibilität prüfen:**
-  - `check_db()`: Führt umfassende Struktur-, Typ- und Plausibilitätsprüfungen für die aufbereiteten Daten durch.
-  - check_nas(): Visualisiert die NA-Konzentration pro Variable und Semester.
-
-- **Rohdaten vereinheitlichen & säubern:**
-  - `remove_semantic_na_values()`: Setzt zu kurze oder inhaltlich leere Texte auf NA.
-  - use_cleaning_template(): Erstellt ein individuelles Cleaning-Template für neue Universitäten/Projekte.
-
-Alle Funktionen sind so gestaltet, dass sie sich flexibel in bestehende Workflows integrieren lassen und die Nachvollziehbarkeit der Datenaufbereitung erhöhen.
-
----
-
-## 📚 Dokumentation
-
-Die Dokumentation wird zukünftig als GitHub-Pages bereitgestellt. Bis dahin finden Sie die aktuelle `.pdf`-Dokumentation [hier](docs/manual).
-
----
-
-## 🛠️ Problembehandlung
-
-**Fehlermeldung bei der Installation?**
-
-Bitte prüfe, ob das Paket `remotes` installiert ist und du eine aktuelle R-Version verwendest. Bei Problemen mit GitHub-Authentifizierung ggf. ein Personal Access Token (PAT) nutzen.
+Die vollständige Paket-Website inklusive Referenz und Vignetten ist unter [stifterverband.github.io/HEXCleanR](https://stifterverband.github.io/HEXCleanR/) verfügbar.
