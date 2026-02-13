@@ -7,6 +7,3 @@ url: "https://github.com/Stifterverband/HEXCleanR"
 template:
   bootstrap: 5
 
-figures:
-  package_logo:
-    src: man/figures/HEXCleanR_Logo.png
