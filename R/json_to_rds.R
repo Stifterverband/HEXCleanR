@@ -1,13 +1,14 @@
-##' Konvertiert eine JSON-Datei in ein RDS-Format
-##'
-##' Diese Funktion liest eine JSON-Datei ein, wandelt sie in ein Tibble um und speichert das Ergebnis als RDS-Datei.
-##'
-##' @param input_path Pfad zur Eingabe-JSON-Datei.
-##' @param output_path Pfad zur Ausgabedatei im RDS-Format.
-##' @return Das eingelesene Tibble.
-##' @importFrom jsonlite fromJSON
-##' @importFrom tibble as_tibble
-##' @importFrom readr write_rds
+#' Konvertiert eine JSON-Datei in ein RDS-Format
+#'
+#' Diese Funktion liest eine JSON-Datei ein, wandelt sie in ein Tibble um und speichert das Ergebnis als RDS-Datei.
+#'
+#' @param input_path Pfad zur Eingabe-JSON-Datei.
+#' @param output_path Pfad zur Ausgabedatei im RDS-Format.
+#' @return Das eingelesene Tibble.
+#' @importFrom jsonlite fromJSON
+#' @importFrom tibble as_tibble
+#' @importFrom readr write_rds
+#' @export
 json_to_rds <- function(input_path, output_path) {
   # Validierung: Prüfen, ob die Quelldatei existiert
   if (!file.exists(input_path)) {

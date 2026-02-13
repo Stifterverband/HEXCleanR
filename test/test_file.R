@@ -181,7 +181,4 @@ db_data_universitaet_jena  |>
     kursbeschreibung_cleaned = remove_semantic_na_values(kursbeschreibung, min_num_letters = 30)
   )
 
-devtools::document()
-devtools::build_manual(path = "docs/manual")
-
 pkgdown::build_site()
