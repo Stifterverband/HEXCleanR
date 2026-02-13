@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">HEXCleanR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,49 +48,26 @@
 <div class="page-header"><h1 id="hexcleanr-">HEXcleanR <a href="https://github.com/Stifterverband/HEXCleanR"><img src="reference/figures/HEXCleanR_Logo.png" align="right" height="160" style="float:right; height:160px;" alt="HEXCleanR website"></a>
 <a class="anchor" aria-label="anchor" href="#hexcleanr-"></a>
 </h1></div>
-<p>HEXCleanR stellt Werkzeuge für die Aufbereitung und Bereinigung von Hochschul- und Future-Skills-Daten bereit. Das Paket bündelt wiederkehrende Arbeitsschritte, damit Analysen reproduzierbar und konsistent bleiben.</p>
+<p>HEXCleanR stellt verschiedene Werkzeuge für die Aufbereitung und Bereinigung der HEX-Daten bereit.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<div class="section level3">
-<h3 id="voraussetzungen">Voraussetzungen<a class="anchor" aria-label="anchor" href="#voraussetzungen"></a>
-</h3>
-<p>Stelle sicher, dass das Paket <code>remotes</code> installiert ist:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="installation-von-github">Installation von GitHub<a class="anchor" aria-label="anchor" href="#installation-von-github"></a>
-</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Stifterverband/HEXCleanR"</span><span class="op">)</span></span></code></pre></div>
 <p>Für einen bestimmten Branch oder Commit kann das Argument <code>ref</code> verwendet werden:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Stifterverband/HEXCleanR"</span>, ref <span class="op">=</span> <span class="st">"branchname"</span><span class="op">)</span></span></code></pre></div>
 <p>Ein erneuter Aufruf aktualisiert das Paket auf die aktuelle Version. Mit <code>force = TRUE</code> erzwingst du eine Neuinstallation.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="funktionsüberblick">Funktionsüberblick<a class="anchor" aria-label="anchor" href="#funktions%C3%BCberblick"></a>
 </h2>
-<p>HEXCleanR deckt zentrale Schritte der Datenbereinigung ab:</p>
-<ul>
-<li>
-<strong>Organisationsdaten prüfen:</strong> <code><a href="reference/check_organisation.html">check_organisation()</a></code> erzeugt Validierungsberichte auf Basis definierter Qualitätsregeln.</li>
-<li>
-<strong>Future-Skills-Klassifikation:</strong> <code><a href="reference/classify_fs.html">classify_fs()</a></code> ordnet Texte Kategorien zu, <code><a href="reference/get_unclassified_data.html">get_unclassified_data()</a></code> listet Einträge ohne Klassifikation auf.</li>
-<li>
-<strong>Sprach- und Inhaltsprüfung:</strong> <code><a href="reference/detect_lang_with_openai.html">detect_lang_with_openai()</a></code> ergänzt Sprachangaben, <code><a href="reference/remove_semantic_na_values.html">remove_semantic_na_values()</a></code> markiert inhaltsleere Texte.</li>
-<li>
-<strong>Qualitätskontrollen:</strong> <code><a href="reference/check_db.html">check_db()</a></code> führt Struktur- und Plausibilitätschecks durch, <code><a href="reference/check_nas.html">check_nas()</a></code> visualisiert fehlende Werte.</li>
-<li>
-<strong>Projektvorbereitung:</strong> <code><a href="reference/use_cleaning_template.html">use_cleaning_template()</a></code> erstellt modulare Vorlagen für neue Datenquellen.</li>
-</ul>
+<p>HEXCleanR deckt zentrale Schritte der Datenbereinigung ab. HEXCleanR hilft, HEX-Standards im Cleaning einzuhalten, Klassifiziert die Daten und deckt Unregelmäßigkeiten in den Daten auf.</p>
 </div>
 <div class="section level2">
 <h2 id="dokumentation">Dokumentation<a class="anchor" aria-label="anchor" href="#dokumentation"></a>
 </h2>
-<p>Die vollständige Paket-Website inklusive Referenz und Vignetten ist unter <a href="https://stifterverband.github.io/HEXCleanR/" class="external-link">stifterverband.github.io/HEXCleanR</a> verfügbar.</p>
+<p>Die vollständige Paket-Funktionalität inklusive Referenz und Vignetten ist unter <a href="https://stifterverband.github.io/HEXCleanR/" class="external-link">stifterverband.github.io/HEXCleanR</a> einsehbar.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

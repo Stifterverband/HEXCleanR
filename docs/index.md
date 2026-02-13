@@ -1,22 +1,9 @@
 # HEXcleanR [![HEXCleanR website](reference/figures/HEXCleanR_Logo.png)](https://github.com/Stifterverband/HEXCleanR)
 
-HEXCleanR stellt Werkzeuge für die Aufbereitung und Bereinigung von
-Hochschul- und Future-Skills-Daten bereit. Das Paket bündelt
-wiederkehrende Arbeitsschritte, damit Analysen reproduzierbar und
-konsistent bleiben.
+HEXCleanR stellt verschiedene Werkzeuge für die Aufbereitung und
+Bereinigung der HEX-Daten bereit.
 
 ## Installation
-
-### Voraussetzungen
-
-Stelle sicher, dass das Paket `remotes` installiert ist:
-
-``` r
-
-install.packages("remotes")
-```
-
-### Installation von GitHub
 
 ``` r
 
@@ -36,33 +23,13 @@ Ein erneuter Aufruf aktualisiert das Paket auf die aktuelle Version. Mit
 
 ## Funktionsüberblick
 
-HEXCleanR deckt zentrale Schritte der Datenbereinigung ab:
-
-- **Organisationsdaten prüfen:**
-  [`check_organisation()`](https://github.com/Stifterverband/HEXCleanR/reference/check_organisation.md)
-  erzeugt Validierungsberichte auf Basis definierter Qualitätsregeln.
-- **Future-Skills-Klassifikation:**
-  [`classify_fs()`](https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.md)
-  ordnet Texte Kategorien zu,
-  [`get_unclassified_data()`](https://github.com/Stifterverband/HEXCleanR/reference/get_unclassified_data.md)
-  listet Einträge ohne Klassifikation auf.
-- **Sprach- und Inhaltsprüfung:**
-  [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md)
-  ergänzt Sprachangaben,
-  [`remove_semantic_na_values()`](https://github.com/Stifterverband/HEXCleanR/reference/remove_semantic_na_values.md)
-  markiert inhaltsleere Texte.
-- **Qualitätskontrollen:**
-  [`check_db()`](https://github.com/Stifterverband/HEXCleanR/reference/check_db.md)
-  führt Struktur- und Plausibilitätschecks durch,
-  [`check_nas()`](https://github.com/Stifterverband/HEXCleanR/reference/check_nas.md)
-  visualisiert fehlende Werte.
-- **Projektvorbereitung:**
-  [`use_cleaning_template()`](https://github.com/Stifterverband/HEXCleanR/reference/use_cleaning_template.md)
-  erstellt modulare Vorlagen für neue Datenquellen.
+HEXCleanR deckt zentrale Schritte der Datenbereinigung ab. HEXCleanR
+hilft, HEX-Standards im Cleaning einzuhalten, Klassifiziert die Daten
+und deckt Unregelmäßigkeiten in den Daten auf.
 
 ## Dokumentation
 
-Die vollständige Paket-Website inklusive Referenz und Vignetten ist
-unter
+Die vollständige Paket-Funktionalität inklusive Referenz und Vignetten
+ist unter
 [stifterverband.github.io/HEXCleanR](https://stifterverband.github.io/HEXCleanR/)
-verfügbar.
+einsehbar.
