@@ -6,12 +6,11 @@
 
 ## Citation
 
-Hückstädt M (2026). *HEXCleanR: Werkzeuge zur Datenbereinigung im
-HEX-Projekt*. R package version 0.5.16,
+Hückstädt M (2026). *HEXCleanR: HEXCleanR*. R package version 0.5.16,
 <http://srv-data01:30080/hex/hexcleanr>.
 
     @Manual{,
-      title = {HEXCleanR: Werkzeuge zur Datenbereinigung im HEX-Projekt},
+      title = {HEXCleanR: HEXCleanR},
       author = {Malte Hückstädt},
       year = {2026},
       note = {R package version 0.5.16},

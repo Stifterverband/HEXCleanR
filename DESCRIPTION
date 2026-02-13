@@ -1,5 +1,5 @@
 Package: HEXCleanR
-Title: Werkzeuge zur Datenbereinigung im HEX-Projekt
+Title: HEXCleanR
 Version: 0.5.16
 Authors@R: 
     person("Malte", "Hückstädt", , "maltehueckstaedt@stifterverband.de", role = c("aut", "cre"))
