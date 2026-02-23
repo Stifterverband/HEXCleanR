@@ -2,11 +2,7 @@
 % Please edit documentation in R/import_matching_data.R
 \name{import_matching_data}
 \alias{import_matching_data}
-\title{Lädt das aktuellste Matching-\code{.rds}-File aus dem \code{Matching}-Ordner der
-angegebenen Universität (lokal in OneDrive) und merged die relevanten Matching-Felder mit \code{scraped_daten}.
-und merged die relevanten Matching-Felder mit \code{scraped_daten}. Wenn kein
-passendes Matching vorhanden ist oder die Matching-Daten nicht LUF-
-optimiert sind, wird \code{scraped_daten} unverändert zurückgegeben.}
+\title{Lädt gematchte Daten aus dem lokalen OneDrive und merged sie mit gescrapten Daten}
 \usage{
 import_matching_data(scraped_daten, uni_ordner_name)
 }

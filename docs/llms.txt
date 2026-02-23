@@ -62,6 +62,10 @@ einsehbar.
   : Detektiert die Sprache in einer Spalte eines Dataframes mittels
   OpenAI GPT-API
 
+- [`import_matching_data()`](https://github.com/Stifterverband/HEXCleanR/reference/import_matching_data.md)
+  : Lädt gematchte Daten aus dem lokalen OneDrive und merged sie mit
+  gescrapten Daten
+
 - [`json_to_rds()`](https://github.com/Stifterverband/HEXCleanR/reference/json_to_rds.md)
   : Konvertiert eine JSON-Datei in ein RDS-Format
 

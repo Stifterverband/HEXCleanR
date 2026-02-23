@@ -1,4 +1,6 @@
-#' Lädt das aktuellste Matching-`.rds`-File aus dem `Matching`-Ordner der
+#' Lädt gematchte Daten aus dem lokalen OneDrive und merged sie mit gescrapten Daten
+#' 
+#'  Lädt das aktuellste Matching-`.rds`-File aus dem `Matching`-Ordner der
 #' angegebenen Universität (lokal in OneDrive) und merged die relevanten Matching-Felder mit `scraped_daten`.
 #' und merged die relevanten Matching-Felder mit `scraped_daten`. Wenn kein
 #' passendes Matching vorhanden ist oder die Matching-Daten nicht LUF-

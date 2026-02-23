@@ -27,14 +27,8 @@
   OpenAI GPT-API
 
 - [`import_matching_data()`](https://github.com/Stifterverband/HEXCleanR/reference/import_matching_data.md)
-  :
-
-  Lädt das aktuellste Matching-`.rds`-File aus dem `Matching`-Ordner der
-  angegebenen Universität (lokal in OneDrive) und merged die relevanten
-  Matching-Felder mit `scraped_daten`. und merged die relevanten
-  Matching-Felder mit `scraped_daten`. Wenn kein passendes Matching
-  vorhanden ist oder die Matching-Daten nicht LUF- optimiert sind, wird
-  `scraped_daten` unverändert zurückgegeben.
+  : Lädt gematchte Daten aus dem lokalen OneDrive und merged sie mit
+  gescrapten Daten
 
 - [`json_to_rds()`](https://github.com/Stifterverband/HEXCleanR/reference/json_to_rds.md)
   : Konvertiert eine JSON-Datei in ein RDS-Format
