@@ -110,7 +110,7 @@ check_organisation <- function(data, organisation_col = "organisation",
       expr = ~ !stringr::str_detect(
         organisation,
         stringr::regex(
-          "(?<!\\p{L})(Bachelor|Master|Diplom|B\\.A|M\\.A|Deutsch|Englisch|Französisch|Spanisch|Italienisch|Russisch|T(?:ü|ue)rkisch|Portugiesisch|Niederl(?:ä|ae)ndisch)(?!\\p{L})",
+          "(?<!\\p{L})(Bachelor|Master|Diplom|B\\.A|M\\.A)(?!\\p{L})",
           ignore_case = TRUE
         )
       ),
