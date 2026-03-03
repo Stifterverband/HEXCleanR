@@ -18,6 +18,12 @@ pacman::p_load(
   textcat, reticulate, hexmatch, rlang, HEXCleanR
 )
 
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Comment: User definieren
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+user <- Sys.info()[["user"]]
+
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -31,7 +37,7 @@ pacman::p_load(
 # Daten abgelegt hast
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-path <- "C:/SV/HEX/Scraping/data/single_universities/NAME_OF_UNIVERSITY"
+path <- paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/NAME_OF_UNIVERSITY")
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # Comment:
@@ -308,31 +314,11 @@ raw_data <- raw_data |>
   )
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# If `sprache_recoded` & `kursbeschreibung` is NA:
-# Detect the primary language of the `titel` using
-# cld2 and cld3.
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-raw_data <- raw_data |>
-  mutate(
-    titel_sprach = case_when(
-      is.na(sprache_recoded) & is.na(kursbeschreibung) & !is.na(titel) ~ coalesce(
-        cld3::detect_language(titel),
-        cld2::detect_language(titel, plain_text = TRUE)
-      ),
-      TRUE ~ NA_character_
-    )
-  )
-
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Define the sprache_recoded based on several rules:
+# Define the sprache_recoded for AI detection based on several rules:
 # - If sprache_recoded could already be extracted
 #   from sprache_original: use sprache_recoded
 # - If `sprache_recoded` is NA, use detected language
 #   from `kursbeschreibung_sprach`.
-# - If `sprache_recoded` is NA &
-#   kursbeschreibung_sprach is NA, use detected
-#   language from `titel_sprach`.
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 raw_data <- raw_data  |>
@@ -348,19 +334,25 @@ raw_data <- raw_data  |>
       kursbeschreibung_sprach == "tr" ~ "Türkisch",
       kursbeschreibung_sprach == "pt" ~ "Portugiesisch",
       kursbeschreibung_sprach == "nl" ~ "Niederländisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "en" ~ "Englisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "de" ~ "Deutsch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "fr" ~ "Französisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "es" ~ "Spanisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "it" ~ "Italienisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "ru" ~ "Russisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "tr" ~ "Türkisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "pt" ~ "Portugiesisch",
-      is.na(kursbeschreibung_sprach) & titel_sprach == "nl" ~ "Niederländisch",
-      is.na(kursbeschreibung_sprach) & is.na(titel_sprach) & is.na(sprache_original) & is.na(sprache_recoded) ~ NA_character_,
+      is.na(kursbeschreibung_sprach) & is.na(sprache_original) & is.na(sprache_recoded) ~ NA_character_,
       TRUE ~ "Sonstiges"
     )
   )
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# If `sprache_recoded` is NA &
+# kursbeschreibung_sprach is NA, detect primary language 
+# from 'titel' using Open-AI API. 
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+db_data_path <- paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/UNIVERSITY_NAME/db_data_UNIVERSITY_NAME.rds")
+
+raw_data <- HEXCleanR::detect_lang_with_openai(
+  df = raw_data, 
+  spalte = "titel", 
+  db_data_path = db_data_path, 
+  export_path = "db_safety_export.rds",
+  batch_size = 100
+)
 
 ## --------------------- studiengaenge ---------------------
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -418,7 +410,7 @@ raw_data <- raw_data %>%
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-db_data_path <- "C:/SV/HEX/Scraping/data/single_universities/UNIVERITY_NAME/db_data_UNIVERSITY_NAME.rds"
+db_data_path <- paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/UNIVERITY_NAME/db_data_UNIVERSITY_NAME.rds")
 
 raw_data_fs <- HEXCleanR::classify_fs(raw_data,
                                       db_data_path,
@@ -544,10 +536,10 @@ db_data <-
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-saveRDS(raw_data, "C:/SV/HEX/Scraping/data/single_universities/UNIVERSITY_NAME/data_UNIVERSITY_NAME.rds")
-saveRDS(codebook, "C:/SV/HEX/Scraping/data/single_universities/UNIVERSITY_NAME/codebook_UNIVERSITY_NAME.rds")
-saveRDS(db_data, "C:/SV/HEX/Scraping/data/single_universities/UNIVERSITY_NAME/db_data_UNIVERSITY_NAME.rds")
+paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/Technische_Universitaet_Muenchen")
+saveRDS(raw_data, paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/UNIVERSITY_NAME/data_UNIVERSITY_NAME.rds"))
+saveRDS(codebook, paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/UNIVERSITY_NAME/codebook_UNIVERSITY_NAME.rds"))
+saveRDS(db_data, paste0("C:/Users/", user, "/OneDrive - Stifterverband/Dateiablage - single_universities/UNIVERSITY_NAME/db_data_UNIVERSITY_NAME.rds"))
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # Comment: create Baby-DB-Datas
