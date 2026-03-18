@@ -28,12 +28,16 @@ devtools::load_all()
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
-final_df <- load_data_from_sp("C:/Users/mhu/OneDrive - Stifterverband/Dateiablage - single_universities/Universitaet_Greifswald")
+final_df <- load_data_from_sp(university_folder = "Friedrich-Alexander-Universitaet_Erlangen-Nuernberg",
+                              file_type = "all",
+                              clean_names = TRUE,
+                              coerce_to_character = TRUE,
+                              add_source_file = TRUE)
 glimpse(final_df)
 
 #check n/semester
 final_df %>%
-  group_by(Semester) %>%
+  group_by(semester,source_file) %>%
   summarise(n = n()) %>%
   print(n = Inf)
 
