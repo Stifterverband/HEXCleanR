@@ -1,0 +1,18 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/check_db.html</loc></url>
+<url><loc>/reference/check_distinct_level_change.html</loc></url>
+<url><loc>/reference/check_distinct_level_change_df.html</loc></url>
+<url><loc>/reference/check_nas.html</loc></url>
+<url><loc>/reference/check_organisation.html</loc></url>
+<url><loc>/reference/classify_fs.html</loc></url>
+<url><loc>/reference/get_unclassified_data.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/load_data_from_sp.html</loc></url>
+<url><loc>/reference/merge_and_join_classified_data.html</loc></url>
+<url><loc>/reference/remove_semantic_na_values.html</loc></url>
+<url><loc>/reference/use_cleaning_template.html</loc></url>
+</urlset>
+

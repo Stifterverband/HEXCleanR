@@ -177,3 +177,9 @@ db_data_universitaet_jena  |>
 
 devtools::document()
 devtools::build_manual(path = "docs/manual")
+
+devtools::load_all()
+devtools::document()
+devtools::unload()
+pkgdown::clean_site(force = TRUE)
+pkgdown::build_site()
