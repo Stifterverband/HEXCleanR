@@ -12,7 +12,11 @@ RoxygenNote: 7.3.3
 Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
+    jsonlite,
     pointblank (>= 0.12.2.9000), 
+    purrr,
+    readr,
     rlang,
     stringr,
-    reticulate
+    reticulate,
+    tibble
