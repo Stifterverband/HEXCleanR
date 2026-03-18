@@ -33,11 +33,13 @@ load_data_from_sp <- function(target_path) {
     path = target_path,
     pattern = "^course_data.*\\.(json|rds)$",
     full.names = TRUE, 
-    recursive = TRUE
+    recursive = TRUE,
+    ignore.case = TRUE
   )
   
   if (length(files) == 0) {
     message("Keine course_data-JSON- oder course_data-RDS-Dateien gefunden.")
+    warning("Im Verzeichnis wurden keine Dateien gefunden, die mit 'course_data' beginnen und auf '.json' oder '.rds' enden.")
     return(NULL)
   }
 
