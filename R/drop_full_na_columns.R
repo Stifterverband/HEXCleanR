@@ -21,15 +21,21 @@
 #' @importFrom tibble tibble
 #' @export
 drop_full_na_columns <- function(data, print_n = Inf) {
-  message("Pruefe NA-Anteile pro Variable ...")
+  separator <- paste(rep("=", 70), collapse = "")
+
+  cat("\n", separator, "\n", sep = "")
+  cat("🧹 NA-Check: Spalten mit 100% NA finden und entfernen\n")
+  cat(separator, "\n", sep = "")
 
   if (ncol(data) == 0) {
-    message("Der Datensatz enthaelt keine Spalten. Es wurde nichts geaendert.")
+    cat("ℹ️  Der Datensatz enthaelt keine Spalten. Es wurde nichts geaendert.\n")
+    cat(separator, "\n", sep = "")
     return(data)
   }
 
   if (nrow(data) == 0) {
-    message("Der Datensatz enthaelt keine Zeilen. Es wurde nichts gedroppt.")
+    cat("ℹ️  Der Datensatz enthaelt keine Zeilen. Es wurde nichts gedroppt.\n")
+    cat(separator, "\n", sep = "")
     return(data)
   }
 
@@ -49,25 +55,26 @@ drop_full_na_columns <- function(data, print_n = Inf) {
   ) |>
     dplyr::arrange(dplyr::desc(na_pct), variable)
 
-  message("Anzahl Variablen: ", ncol(data))
-  message("Anzahl Zeilen: ", nrow(data))
-  message("NA-Uebersicht pro Variable in Prozent:")
+  cat("📊 Datensatz: ", nrow(data), " Zeilen x ", ncol(data), " Variablen\n", sep = "")
+  cat("🔎 NA-Uebersicht pro Variable:\n")
   print(na_overview, n = print_n)
 
   full_na_vars <- na_overview$variable[na_overview$na_count == nrow(data)]
 
   if (length(full_na_vars) == 0) {
-    message("Es wurden keine Variablen mit 100% NA gefunden. Es wurde nichts gedroppt.")
+    cat("✅ Keine Variablen mit 100% NA gefunden. Es wurde nichts entfernt.\n")
+    cat(separator, "\n", sep = "")
     return(data)
   }
 
-  message("Folgende Variablen haben 100% NA und werden entfernt:")
+  cat("🗑️  Diese Variablen werden entfernt:\n")
   print(full_na_vars)
 
   data_clean <- data[, !(names(data) %in% full_na_vars), drop = FALSE]
 
-  message("Anzahl entfernter Variablen: ", length(full_na_vars))
-  message("Verbleibende Variablen nach dem Drop: ", ncol(data_clean))
+  cat("✅ Entfernt: ", length(full_na_vars), " Variable(n)\n", sep = "")
+  cat("📦 Verbleibend: ", ncol(data_clean), " Variable(n)\n", sep = "")
+  cat(separator, "\n", sep = "")
 
   return(data_clean)
 }

@@ -28,12 +28,13 @@ devtools::load_all()
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
-final_df <- load_data_from_sp(university_folder = "Deutsche_Sporthochschule_Koeln",
+raw_data_ds_koeln <- load_data_from_sp(university_folder = "Deutsche_Sporthochschule_Koeln",
                               file_type = "all",
                               clean_names = TRUE,
                               coerce_to_character = TRUE,
                               add_source_file = TRUE) |>
-                              drop_full_na_columns()
+                              drop_full_na_columns() |>
+                              squish_character_columns()
 
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -43,9 +44,10 @@ final_df <- load_data_from_sp(university_folder = "Deutsche_Sporthochschule_Koel
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-final_df |> 
+raw_data_ds_koeln |> 
   check_semester_n()
 
+View(raw_data_ds_koeln)
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
