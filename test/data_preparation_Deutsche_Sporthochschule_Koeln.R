@@ -28,24 +28,12 @@ devtools::load_all()
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
-final_df <- load_data_from_sp(university_folder = "Friedrich-Alexander-Universitaet_Erlangen-Nuernberg",
+final_df <- load_data_from_sp(university_folder = "Deutsche_Sporthochschule_Koeln",
                               file_type = "all",
                               clean_names = TRUE,
                               coerce_to_character = TRUE,
-                              add_source_file = TRUE)
-glimpse(final_df)
-
-#check n/semester
-final_df %>%
-  group_by(semester,source_file) %>%
-  summarise(n = n()) %>%
-  print(n = Inf)
-
-#remove duplicate rows and all rows, where titel and nummer are NA
-raw_data <- raw_data |>
-  distinct() |>
-  filter(!(is.na(titel) & is.na(nummer)))
-
+                              add_source_file = TRUE) |>
+                              drop_full_na_columns()
 
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -55,17 +43,8 @@ raw_data <- raw_data |>
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Comment: Check NAs per Plot.
-#          Remove Variables with 100% NA.
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-gg_miss_var(raw_data,
-            show_pct = TRUE)
-
-raw_data <- raw_data |>
-  select(where(~ !all(is.na(.))))
-
+final_df |> 
+  check_semester_n()
 
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
