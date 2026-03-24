@@ -48,88 +48,53 @@ load_data_from_sp <- function(
 ) {
   file_type <- match.arg(file_type, choices = c("all", "json", "rds", "csv"))
 
-  username <- Sys.info()[["user"]]
-  base_path <- file.path(
-    "C:/Users",
-    username,
-    "OneDrive - Stifterverband",
-    "Dateiablage - single_universities"
-  )
+  username   <- Sys.info()[["user"]]
+  base_path  <- file.path("C:/Users", username, "OneDrive - Stifterverband",
+                          "Dateiablage - single_universities")
   target_path <- file.path(base_path, university_folder)
 
-  message("Suche nach course_data-Dateien in: ", target_path)
-  message("Ausgewählter Dateityp: ", file_type)
-  message("clean_names aktiv: ", clean_names)
-  message("source_file aktiv: ", add_source_file)
-  message("als character harmonisieren: ", coerce_to_character)
-
   if (!dir.exists(target_path)) {
-    warning("Der Hochschulordner wurde nicht gefunden: ", target_path)
+    warning("Hochschulordner nicht gefunden: ", target_path)
     return(NULL)
   }
 
   file_pattern <- switch(
     file_type,
-    all = "^course_data.*\\.(json|rds|csv)$",
+    all  = "^course_data.*\\.(json|rds|csv)$",
     json = "^course_data.*\\.json$",
-    rds = "^course_data.*\\.rds$",
-    csv = "^course_data.*\\.csv$"
+    rds  = "^course_data.*\\.rds$",
+    csv  = "^course_data.*\\.csv$"
   )
 
-  # 1. Alle relevanten Dateien finden
-  files <- list.files(
-    path = target_path,
-    pattern = file_pattern,
-    full.names = TRUE,
-    recursive = TRUE,
-    ignore.case = TRUE
-  )
-
+  files <- list.files(target_path, pattern = file_pattern,
+                      full.names = TRUE, recursive = TRUE, ignore.case = TRUE)
   files <- files[!grepl("(^|[\\/])archiv([\\/]|$)", files, ignore.case = TRUE)]
 
   if (length(files) == 0) {
-    message("Keine passenden course_data-Dateien gefunden.")
-    warning(
-      "Im Verzeichnis wurden keine Dateien gefunden, die mit 'course_data' beginnen und ",
-      "zum gewählten Dateityp passen."
-    )
+    warning("Keine course_data-Dateien gefunden in: ", target_path)
     return(NULL)
   }
 
-  message("Gefundene Dateien: ", length(files))
+  message("📂 ", length(files), " Datei(en) gefunden – lade...")
 
-  # 2. Dateien iterativ laden und binden
   combined_df <- purrr::map_dfr(files, function(file_path) {
-    message("Lade Datei: ", basename(file_path))
+    ext  <- tolower(stringr::str_extract(file_path, "[:alnum:]+$"))
 
-    ext <- stringr::str_extract(file_path, "[:alnum:]+$") |> tolower()
-
-    if (ext == "json") {
-      data <- jsonlite::fromJSON(file_path) |> tibble::as_tibble()
-    } else if (ext == "rds") {
-      data <- readr::read_rds(file_path) |> tibble::as_tibble()
-    } else if (ext == "csv") {
-      data <- readr::read_csv(file_path, show_col_types = FALSE) |> tibble::as_tibble()
-    } else {
+    data <- switch(ext,
+      json = jsonlite::fromJSON(file_path) |> tibble::as_tibble(),
+      rds  = readr::read_rds(file_path)    |> tibble::as_tibble(),
+      csv  = readr::read_csv(file_path, show_col_types = FALSE),
       return(NULL)
-    }
+    )
 
-    if (isTRUE(clean_names)) {
-      data <- janitor::clean_names(data)
-    }
-
-    if (isTRUE(add_source_file)) {
-      data <- dplyr::mutate(data, source_file = basename(file_path))
-    }
-
-    if (isTRUE(coerce_to_character)) {
-      data <- dplyr::mutate(data, dplyr::across(dplyr::everything(), as.character))
-    }
+    if (isTRUE(clean_names))        data <- janitor::clean_names(data)
+    if (isTRUE(add_source_file))    data <- dplyr::mutate(data, source_file = basename(file_path))
+    if (isTRUE(coerce_to_character)) data <- dplyr::mutate(data, dplyr::across(dplyr::everything(), as.character))
 
     data
   })
 
-  message("Zusammenführen abgeschlossen. Zeilen gesamt: ", nrow(combined_df))
+  message("✅ ", nrow(combined_df), " Zeilen geladen.")
 
-  return(combined_df)
+  combined_df
 }

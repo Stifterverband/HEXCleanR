@@ -20,33 +20,21 @@
 #' @importFrom stringr str_squish
 #' @export
 squish_character_columns <- function(data) {
-  separator <- paste(rep("-", 70), collapse = "")
-
-  cat("\n", separator, "\n", sep = "")
-  cat("✂️ Textbereinigung: str_squish() auf Character-Variablen\n")
-  cat(separator, "\n", sep = "")
 
   character_cols <- names(data)[vapply(data, is.character, logical(1))]
 
   if (length(character_cols) == 0) {
-    cat("ℹ️  Keine Character-Variablen gefunden. Es wurde nichts geaendert.\n")
-    cat(separator, "\n", sep = "")
+    message("ℹ️  Keine Character-Variablen gefunden - nichts geaendert.")
     return(data)
   }
 
-  cat("📝 str_squish() wird angewendet auf:\n")
-  print(character_cols)
+  message("✂️  str_squish() auf ", length(character_cols), " Character-Spalte(n).")
 
-  data_clean <- data |>
+  data |>
     dplyr::mutate(
       dplyr::across(
         dplyr::where(is.character),
         stringr::str_squish
       )
     )
-
-  cat("✅ Leerzeichenbereinigung abgeschlossen.\n")
-  cat(separator, "\n", sep = "")
-
-  return(data_clean)
 }
