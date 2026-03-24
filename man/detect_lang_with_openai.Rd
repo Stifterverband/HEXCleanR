@@ -18,8 +18,9 @@ detect_lang_with_openai(
 \item{spalte}{Name der Spalte (String), deren Inhalt analysiert werden soll
 (z. B. \code{"titel"}).}
 
-\item{db_data_path}{Pfad zur permanenten RDS-Datenbank mit historischen
-Klassifikationen.}
+\item{db_data_path}{Optionaler Pfad zur permanenten RDS-Datenbank mit
+historischen Klassifikationen. Wenn \code{NULL} oder nicht vorhanden, wird ohne
+DB-Lookup gearbeitet.}
 
 \item{export_path}{Pfad zum Sicherheits-Export (RDS), der den aktuellen
 Fortschritt speichert. Standard ist \code{"db_safety_export.rds"}.}

@@ -24,8 +24,9 @@
 #' @param df Ein Dataframe, der die zu klassifizierende Textspalte enthält.
 #' @param spalte Name der Spalte (String), deren Inhalt analysiert werden soll
 #'   (z. B. `"titel"`).
-#' @param db_data_path Pfad zur permanenten RDS-Datenbank mit historischen
-#'   Klassifikationen.
+#' @param db_data_path Optionaler Pfad zur permanenten RDS-Datenbank mit
+#'   historischen Klassifikationen. Wenn `NULL` oder nicht vorhanden, wird ohne
+#'   DB-Lookup gearbeitet.
 #' @param export_path Pfad zum Sicherheits-Export (RDS), der den aktuellen
 #'   Fortschritt speichert. Standard ist `"db_safety_export.rds"`.
 #' @param batch_size Anzahl der Titel pro API-Abfrage. Standard ist `100`.
@@ -78,7 +79,7 @@ detect_lang_with_openai <- function(df, spalte, db_data_path,
       dplyr::select(-dplyr::ends_with(suffix_name))
   }
 
-  if (file.exists(db_data_path)) {
+  if (!is.null(db_data_path) && file.exists(db_data_path)) {
     df <- safe_join(df, readRDS(db_data_path), spalte, target_var, ".db")
   }
 

@@ -3,6 +3,8 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
 
   helper_titles <- character()
 
+  withr::local_envvar(c(OPENAI_API_KEY = "test-key"))
+
   local_mocked_bindings(
     detect_lang_with_openai = function(df, spalte, db_data_path,
                                        export_path = "db_safety_export.rds",
@@ -26,6 +28,7 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
       "This is a longer English course description for language detection."
     ),
     sprache_recoded = c(NA_character_, NA_character_, NA_character_),
+    kursbeschreibung_sprach = c(NA_character_, NA_character_, NA_character_),
     stringsAsFactors = FALSE
   )
 
@@ -39,10 +42,16 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   export_path <- tempfile(fileext = ".rds")
   saveRDS(db_data, db_data_path)
 
-  result <- detect_missing_languages(
-    raw_data = raw_data,
-    db_data_path = db_data_path,
-    export_path = export_path
+  expect_message(
+    expect_message(
+      result <- detect_missing_languages(
+        raw_data = raw_data,
+        db_data_path = db_data_path,
+        export_path = export_path
+      ),
+      "1 Zeilen wurden ueber den normalen Weg mit cld3 bearbeitet\\."
+    ),
+    "1 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
   )
 
   expect_identical(
@@ -54,6 +63,102 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   expect_true(is.na(result$kursbeschreibung_sprach[2]))
   expect_false(is.na(result$kursbeschreibung_sprach[3]))
   expect_type(result$kursbeschreibung_sprach[3], "character")
+})
+
+test_that("detect_missing_languages behandelt fehlende kursbeschreibung-Spalte als komplett NA", {
+  helper_titles <- character()
+
+  withr::local_envvar(c(OPENAI_API_KEY = "test-key"))
+
+  local_mocked_bindings(
+    detect_lang_with_openai = function(df, spalte, db_data_path,
+                                       export_path = "db_safety_export.rds",
+                                       batch_size = 100) {
+      helper_titles <<- df[[spalte]]
+      df$sprache_recoded <- "Deutsch"
+      df
+    },
+    .package = "HEXCleanR"
+  )
+
+  raw_data <- data.frame(
+    titel = c("Titel A", "Titel B"),
+    sprache_recoded = c(NA_character_, NA_character_),
+    stringsAsFactors = FALSE
+  )
+
+  db_data_path <- tempfile(fileext = ".rds")
+  saveRDS(data.frame(titel = character(), sprache_recoded = character()), db_data_path)
+
+  expect_message(
+    result <- detect_missing_languages(
+      raw_data = raw_data,
+      db_data_path = db_data_path
+    ),
+    "2 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
+  )
+
+  expect_false("kursbeschreibung" %in% names(result))
+  expect_false("kursbeschreibung_sprach" %in% names(result))
+  expect_identical(result$sprache_recoded, c("Deutsch", "Deutsch"))
+  expect_identical(helper_titles, c("Titel A", "Titel B"))
+})
+
+test_that("detect_missing_languages arbeitet ohne DB weiter, wenn db_data_path NULL ist", {
+  helper_titles <- character()
+
+  withr::local_envvar(c(OPENAI_API_KEY = "test-key"))
+
+  local_mocked_bindings(
+    detect_lang_with_openai = function(df, spalte, db_data_path,
+                                       export_path = "db_safety_export.rds",
+                                       batch_size = 100) {
+      helper_titles <<- df[[spalte]]
+      df$sprache_recoded <- "Deutsch"
+      df
+    },
+    .package = "HEXCleanR"
+  )
+
+  raw_data <- data.frame(
+    titel = "Titel ohne DB",
+    sprache_recoded = NA_character_,
+    stringsAsFactors = FALSE
+  )
+
+  expect_message(
+    result <- detect_missing_languages(
+      raw_data = raw_data,
+      db_data_path = NULL
+    ),
+    "1 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
+  )
+
+  expect_identical(result$sprache_recoded, "Deutsch")
+  expect_identical(helper_titles, "Titel ohne DB")
+})
+
+test_that("detect_missing_languages warnt bei fehlendem OPENAI_API_KEY", {
+  withr::local_envvar(c(OPENAI_API_KEY = ""))
+
+  raw_data <- data.frame(
+    titel = "Titel ohne API-Key",
+    sprache_recoded = NA_character_,
+    stringsAsFactors = FALSE
+  )
+
+  expect_warning(
+    expect_message(
+      result <- detect_missing_languages(
+        raw_data = raw_data,
+        db_data_path = NULL
+      ),
+      "0 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
+    ),
+    "OPENAI_API_KEY ist nicht gesetzt"
+  )
+
+  expect_true(is.na(result$sprache_recoded))
 })
 
 test_that("detect_lang_with_openai liefert mit echter API einen gueltigen Sprachwert", {

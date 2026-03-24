@@ -6,7 +6,7 @@
 \usage{
 detect_missing_languages(
   raw_data,
-  db_data_path,
+  db_data_path = NULL,
   export_path = "db_safety_export.rds",
   batch_size = 100,
   titel_col = "titel",
@@ -18,8 +18,9 @@ detect_missing_languages(
 \arguments{
 \item{raw_data}{Ein data.frame oder tibble mit den Kursdaten.}
 
-\item{db_data_path}{Pfad zur RDS-Datei mit bestehenden Sprachklassifikationen
-für \code{detect_lang_with_openai()}.}
+\item{db_data_path}{Optionaler Pfad zur RDS-Datei mit bestehenden
+Sprachklassifikationen für \code{detect_lang_with_openai()}. Wenn \code{NULL} oder
+nicht vorhanden, wird ohne DB-Lookup gearbeitet.}
 
 \item{export_path}{Pfad zum Sicherheits-Export für
 \code{detect_lang_with_openai()}. Standard ist \code{"db_safety_export.rds"}.}
@@ -60,4 +61,8 @@ Kursbeschreibung mit \code{cld3::detect_language()} bestimmt und in
 \details{
 Bestehende Werte in \code{sprache_recoded} und \code{kursbeschreibung_sprach} werden
 nicht überschrieben.
+Die Funktion gibt außerdem aus, wie viele Zeilen über den normalen Weg mit
+\code{cld3::detect_language()} und wie viele über OpenAI bearbeitet wurden.
+Wenn OpenAI-Fälle anstehen, aber kein \code{OPENAI_API_KEY} gesetzt ist, wird eine
+Warnung ausgegeben und der OpenAI-Zweig übersprungen.
 }
