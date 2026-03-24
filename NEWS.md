@@ -1,3 +1,7 @@
+# HEXCleanR 0.5.17
+
+* Neue Funktion `detect_missing_languages()`, die fehlende Sprachinformationen in Kursdaten ergänzt: vorhandene Sprachwerte werden zunächst ggf. per `titel` aus der DB übernommen, offene Fälle mit `kursbeschreibung` über `cld3` verarbeitet und Titel ohne `kursbeschreibung` optional über OpenAI klassifiziert.
+
 # HEXCleanR 0.5.16
 
 * `check_db()` behandelt fehlende Werte in `kursbeschreibung` bei der Mindestlängenprüfung nun korrekt und markiert `NA` nicht mehr fälschlich als Beschreibungen mit weniger als 20 Zeichen.
