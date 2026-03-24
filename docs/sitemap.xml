@@ -10,6 +10,8 @@
 <url><loc>/reference/check_organisation.html</loc></url>
 <url><loc>/reference/check_semester_n.html</loc></url>
 <url><loc>/reference/classify_fs.html</loc></url>
+<url><loc>/reference/detect_lang_with_openai.html</loc></url>
+<url><loc>/reference/detect_missing_languages.html</loc></url>
 <url><loc>/reference/drop_full_na_columns.html</loc></url>
 <url><loc>/reference/get_unclassified_data.html</loc></url>
 <url><loc>/reference/index.html</loc></url>

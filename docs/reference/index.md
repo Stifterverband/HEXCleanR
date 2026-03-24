@@ -25,6 +25,12 @@
 - [`classify_fs()`](classify_fs.md) : Klassifiziert Kursdaten mit
   SetFit-Modell und pflegt neue Labels ein
 
+- [`detect_lang_with_openai()`](detect_lang_with_openai.md) : Detektiert
+  die Sprache in einer Spalte eines Dataframes mittels OpenAI GPT-API
+
+- [`detect_missing_languages()`](detect_missing_languages.md) : Ergänzt
+  fehlende Sprachinformationen in Kursdaten
+
 - [`drop_full_na_columns()`](drop_full_na_columns.md) : Gibt NA-Anteile
   pro Variable aus und entfernt 100%-NA-Spalten
 

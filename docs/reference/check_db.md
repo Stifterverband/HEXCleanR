@@ -42,7 +42,8 @@ Folgende Prüfungen werden durchgeführt:
 4.  **Mindestlänge Kursbeschreibung:** Die Länge der Kursbeschreibung
     (`kursbeschreibung_len`) muss mindestens 20 Zeichen betragen.
     Kürzere Beschreibungen gelten als fehlerhaft und sollten NA gesetzt
-    werden.
+    werden. Bereits fehlende Kursbeschreibungen (`NA`) werden dabei
+    nicht beanstandet.
 
 5.  **Hochschulnamen:** Die Werte in `hochschule` müssen in der
     geladenen Referenzliste zulässiger Hochschulnamen enthalten sein
