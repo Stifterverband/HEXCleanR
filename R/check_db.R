@@ -19,6 +19,7 @@
 #' 4. **Mindestlänge Kursbeschreibung:** Die Länge der
 #'    Kursbeschreibung (`kursbeschreibung_len`) muss mindestens 20 Zeichen betragen.
 #'    Kürzere Beschreibungen gelten als fehlerhaft und sollten NA gesetzt werden.
+#'    Bereits fehlende Kursbeschreibungen (`NA`) werden dabei nicht beanstandet.
 #' 5. **Hochschulnamen:** Die Werte in `hochschule` müssen in der geladenen
 #'    Referenzliste zulässiger Hochschulnamen enthalten sein (`inst/extdata/hochschulen_namen_kuerzel.sql`).
 #' 6. **Hochschulkürzel:** Die Werte in `hochschule_kurz` müssen in der entsprechenden
@@ -120,7 +121,13 @@ check_db <- function(test_data) {
   # 4. pointblank-Agent mit allen Checks aufbauen
   # =========================
     agent <- pointblank::create_agent(
-    tbl = ~ test_data %>% dplyr::mutate(kursbeschreibung_len = nchar(kursbeschreibung)),
+    tbl = ~ test_data %>% dplyr::mutate(
+      kursbeschreibung_len = dplyr::if_else(
+        is.na(kursbeschreibung),
+        NA_integer_,
+        nchar(kursbeschreibung, keepNA = TRUE)
+      )
+    ),
     tbl_name = "DB-Check",
     label = "DB-Check Report",
     actions = pointblank::action_levels(

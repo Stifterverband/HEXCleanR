@@ -31,6 +31,7 @@ vom Typ \code{character} sein.
 \item \strong{Mindestlänge Kursbeschreibung:} Die Länge der
 Kursbeschreibung (\code{kursbeschreibung_len}) muss mindestens 20 Zeichen betragen.
 Kürzere Beschreibungen gelten als fehlerhaft und sollten NA gesetzt werden.
+Bereits fehlende Kursbeschreibungen (\code{NA}) werden dabei nicht beanstandet.
 \item \strong{Hochschulnamen:} Die Werte in \code{hochschule} müssen in der geladenen
 Referenzliste zulässiger Hochschulnamen enthalten sein (\code{inst/extdata/hochschulen_namen_kuerzel.sql}).
 \item \strong{Hochschulkürzel:} Die Werte in \code{hochschule_kurz} müssen in der entsprechenden

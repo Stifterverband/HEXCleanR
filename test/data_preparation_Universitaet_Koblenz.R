@@ -174,14 +174,29 @@ raw_data <- raw_data %>%
 #Comment:
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+unique(raw_data$veranstaltung)
 
 ## --------------------- sprache_original ------------------
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # Comment:
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+raw_data <- raw_data |>
+  mutate(sprache_original = sprache) 
 
-## --------------------- sprache_recoded -------------------
+
+samp_data <- raw_data %>%
+  sample_n(100)
+
+devtools::load_all()
+samp_data <- detect_missing_languages(
+  raw_data = samp_data, 
+  titel_col = "veranstaltung",
+  export_path = "C:/Users/mhu/OneDrive - Stifterverband/Dateiablage - single_universities/Universitaet_Koblenz/db_safety_export.rds"
+)
+
+view(samp_data)
+--------- sprache_recoded -------------------
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # custom case_when to use all valid values
 # from sprache_original

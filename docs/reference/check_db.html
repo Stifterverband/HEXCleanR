@@ -9,7 +9,7 @@ und Plausibilitätsprüfungen für db_data.rds. Der Check bildet den Abschluss d
 
     <a class="navbar-brand me-2" href="../index.html">HEXCleanR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.15</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,8 @@ vom Typ <code>character</code> sein.</p></li>
 <code>hardware_robotikentwicklung</code> und <code>quantencomputing</code> müssen numerisch sein.</p></li>
 <li><p><strong>Mindestlänge Kursbeschreibung:</strong> Die Länge der
 Kursbeschreibung (<code>kursbeschreibung_len</code>) muss mindestens 20 Zeichen betragen.
-Kürzere Beschreibungen gelten als fehlerhaft und sollten NA gesetzt werden.</p></li>
+Kürzere Beschreibungen gelten als fehlerhaft und sollten NA gesetzt werden.
+Bereits fehlende Kursbeschreibungen (<code>NA</code>) werden dabei nicht beanstandet.</p></li>
 <li><p><strong>Hochschulnamen:</strong> Die Werte in <code>hochschule</code> müssen in der geladenen
 Referenzliste zulässiger Hochschulnamen enthalten sein (<code>inst/extdata/hochschulen_namen_kuerzel.sql</code>).</p></li>
 <li><p><strong>Hochschulkürzel:</strong> Die Werte in <code>hochschule_kurz</code> müssen in der entsprechenden
