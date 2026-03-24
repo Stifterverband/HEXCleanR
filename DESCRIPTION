@@ -1,6 +1,6 @@
 Package: HEXCleanR
 Title: Werkzeuge zur Datenbereinigung im HEX-Projekt
-Version: 0.5.14
+Version: 0.5.15
 Authors@R: 
     person("Malte", "Hückstädt", , "maltehueckstaedt@stifterverband.de", role = c("aut", "cre"))
 Description: Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a. insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.
@@ -12,6 +12,7 @@ RoxygenNote: 7.3.3
 Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
+    ggplot2,
     janitor,
     jsonlite,
     pointblank (>= 0.12.2.9000), 
@@ -20,4 +21,5 @@ Imports:
     rlang,
     stringr,
     reticulate,
-    tibble
+    tibble,
+    tidyr
