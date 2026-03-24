@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_data_from_sp.R
 \name{load_data_from_sp}
 \alias{load_data_from_sp}
-\title{Lädt \code{course_data}-Dateien rekursiv aus einem Hochschulordner}
+\title{Laedt \code{course_data}-Dateien rekursiv aus einem Hochschulordner}
 \usage{
 load_data_from_sp(
   university_folder,
@@ -24,30 +24,30 @@ innerhalb von \code{Dateiablage - single_universities}, zum Beispiel
 jeder eingelesenen Datei mit \code{janitor::clean_names()} bereinigt.}
 
 \item{add_source_file}{Logisch. Wenn \code{TRUE} (Standard), wird eine Spalte
-\code{source_file} mit dem Dateinamen ergänzt.}
+\code{source_file} mit dem Dateinamen ergaenzt.}
 
 \item{coerce_to_character}{Logisch. Wenn \code{TRUE} (Standard), werden alle
-Spalten pro eingelesener Datei vor dem Zusammenführen in \code{character}
+Spalten pro eingelesener Datei vor dem Zusammenfuehren in \code{character}
 umgewandelt, um Typkonflikte beim Binden zu vermeiden.}
 }
 \value{
-Ein \code{tibble} mit den zusammengeführten Inhalten aller gefundenen
+Ein \code{tibble} mit den zusammengefuehrten Inhalten aller gefundenen
 Dateien. Wenn keine passenden Dateien gefunden werden oder der
-Hochschulordner nicht existiert, gibt die Funktion \code{NULL} zurück und
-erzeugt eine Warnung.
+Hochschulordner nicht existiert, gibt die Funktion \code{NULL} zurueck und
+erzeugt eine Meldung.
 }
 \description{
 Die Funktion ermittelt automatisch den aktuellen Windows-Benutzernamen und
 konstruiert daraus den Basispfad
 \verb{C:/Users/<username>/OneDrive - Stifterverband/Dateiablage - single_universities/}.
-Innerhalb des übergebenen Hochschulordners sucht sie rekursiv nach Dateien,
+Innerhalb des uebergebenen Hochschulordners sucht sie rekursiv nach Dateien,
 deren Name mit \code{course_data} beginnt und je nach \code{file_type} auf \code{.json},
 \code{.rds} oder \code{.csv} endet. Ordner mit dem Namen \code{archiv} werden dabei
 ausgeschlossen.
 }
 \details{
 Gefundene Dateien werden eingelesen, optional mit \code{janitor::clean_names()}
-bereinigt, optional um eine Spalte \code{source_file} ergänzt und bei Bedarf vor
-dem Zusammenführen vollständig in \code{character} umgewandelt, um Typkonflikte
+bereinigt, optional um eine Spalte \code{source_file} ergaenzt und bei Bedarf vor
+dem Zusammenfuehren vollstaendig in \code{character} umgewandelt, um Typkonflikte
 zwischen Dateien zu vermeiden.
 }

@@ -1,9 +1,9 @@
-# Lädt `course_data`-Dateien rekursiv aus einem Hochschulordner
+# Laedt `course_data`-Dateien rekursiv aus einem Hochschulordner
 
 Die Funktion ermittelt automatisch den aktuellen Windows-Benutzernamen
 und konstruiert daraus den Basispfad
 `C:/Users/<username>/OneDrive - Stifterverband/Dateiablage - single_universities/`.
-Innerhalb des übergebenen Hochschulordners sucht sie rekursiv nach
+Innerhalb des uebergebenen Hochschulordners sucht sie rekursiv nach
 Dateien, deren Name mit `course_data` beginnt und je nach `file_type`
 auf `.json`, `.rds` oder `.csv` endet. Ordner mit dem Namen `archiv`
 werden dabei ausgeschlossen.
@@ -43,25 +43,25 @@ load_data_from_sp(
 - add_source_file:
 
   Logisch. Wenn `TRUE` (Standard), wird eine Spalte `source_file` mit
-  dem Dateinamen ergänzt.
+  dem Dateinamen ergaenzt.
 
 - coerce_to_character:
 
   Logisch. Wenn `TRUE` (Standard), werden alle Spalten pro eingelesener
-  Datei vor dem Zusammenführen in `character` umgewandelt, um
+  Datei vor dem Zusammenfuehren in `character` umgewandelt, um
   Typkonflikte beim Binden zu vermeiden.
 
 ## Value
 
-Ein `tibble` mit den zusammengeführten Inhalten aller gefundenen
+Ein `tibble` mit den zusammengefuehrten Inhalten aller gefundenen
 Dateien. Wenn keine passenden Dateien gefunden werden oder der
-Hochschulordner nicht existiert, gibt die Funktion `NULL` zurück und
-erzeugt eine Warnung.
+Hochschulordner nicht existiert, gibt die Funktion `NULL` zurueck und
+erzeugt eine Meldung.
 
 ## Details
 
 Gefundene Dateien werden eingelesen, optional mit
 [`janitor::clean_names()`](https://sfirke.github.io/janitor/reference/clean_names.html)
-bereinigt, optional um eine Spalte `source_file` ergänzt und bei Bedarf
-vor dem Zusammenführen vollständig in `character` umgewandelt, um
+bereinigt, optional um eine Spalte `source_file` ergaenzt und bei Bedarf
+vor dem Zusammenfuehren vollstaendig in `character` umgewandelt, um
 Typkonflikte zwischen Dateien zu vermeiden.

@@ -18,16 +18,30 @@
 - [`check_organisation()`](check_organisation.md) : Prüft
   Organisations-Variable auf definierte Qualitätsregeln
 
+- [`check_semester_n()`](check_semester_n.md) :
+
+  Gibt Zeilenzahlen pro `source_file` aus und gibt die Daten zurueck
+
 - [`classify_fs()`](classify_fs.md) : Klassifiziert Kursdaten mit
   SetFit-Modell und pflegt neue Labels ein
 
+- [`drop_full_na_columns()`](drop_full_na_columns.md) : Gibt NA-Anteile
+  pro Variable aus und entfernt 100%-NA-Spalten
+
 - [`load_data_from_sp()`](load_data_from_sp.md) :
 
-  Lädt `course_data`-Dateien rekursiv aus einem Hochschulordner
+  Laedt `course_data`-Dateien rekursiv aus einem Hochschulordner
+
+- [`plot_na_balloons()`](plot_na_balloons.md) : Visualisiert fehlende
+  Werte pro Variable und Gruppierung als Balloon Plot
 
 - [`remove_semantic_na_values()`](remove_semantic_na_values.md) : Setzt
   Werte einer String-Variable NA, wenn diese weniger als 20 Zeichen
   enthalten
+
+- [`squish_character_columns()`](squish_character_columns.md) :
+
+  Fuehrt `str_squish()` auf allen Character-Variablen aus
 
 - [`use_cleaning_template()`](use_cleaning_template.md) : Erzeugt ein
   Cleaning-Template im aktuellen Projekt

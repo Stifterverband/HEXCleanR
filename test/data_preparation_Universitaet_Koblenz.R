@@ -28,6 +28,9 @@ raw_data <- load_data_from_sp(university_folder = UNIVERSITY_FOLDER) |>
 raw_data |> 
   check_semester_n() 
   
+raw_data |>
+  plot_na_balloons(grp_var = semester_y)
+    
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # DATA PREPARATION -----------------------------------------
 #|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -38,15 +41,17 @@ raw_data |>
 # ects              – nicht vorhanden
 # organisation_orig – nicht vorhanden
 
-unique(raw_data$einrichtung)
-view(raw_data)
-## --------------------- organisation ----------------------
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Comment:
-#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+## organisation_orig/organisation --------------------------
 
-colnames(raw_data)
-unique(raw_data$)
+raw_data <- raw_data %>%
+  mutate(organisation_orig = organisation) %>%
+  mutate(organisation = map_chr(einrichtung, ~ paste(unlist(.x), collapse = " ; ")))
+
+raw_data |>
+  select(!is.list) |>
+  check_organisation()
+
+ 
 
 ## --------------------- fakultaet -------------------------
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
