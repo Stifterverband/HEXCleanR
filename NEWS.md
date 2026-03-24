@@ -1,3 +1,7 @@
+# HEXCleanR 0.5.16
+
+* `check_db()` behandelt fehlende Werte in `kursbeschreibung` bei der Mindestlängenprüfung nun korrekt und markiert `NA` nicht mehr fälschlich als Beschreibungen mit weniger als 20 Zeichen.
+
 # HEXCleanR 0.5.15
 
 * Neue Funktion `load_data_from_sp()`, um `course_data`-Dateien rekursiv aus einem Hochschulordner in der Stifterverband-OneDrive-Struktur zu laden, inklusive optionaler Bereinigung der Spaltennamen, `source_file`-Spalte und Umwandlung in `character`.
