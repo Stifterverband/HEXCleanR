@@ -42,13 +42,13 @@
 #' @importFrom rlang .data
 #' @export
 detect_missing_languages <- function(raw_data,
-                                     db_data_path = NULL,
-                                     export_path = "db_safety_export.rds",
-                                     batch_size = 100,
+                                    db_data_path = NULL,
+                                    export_path = "db_safety_export.rds",
+                                    batch_size = 100,
                                     titel_col = "titel",
                                     kursbeschreibung_col = "kursbeschreibung",
-                                     sprache_col = "sprache_recoded",
-                                     kursbeschreibung_sprach_col = "kursbeschreibung_sprach") {
+                                    sprache_col = "sprache_recoded",
+                                    kursbeschreibung_sprach_col = "kursbeschreibung_sprach") {
 
   # Merkt sich Spalten, die nur fuer die interne Verarbeitung erzeugt wurden.
   created_helper_cols <- character()
