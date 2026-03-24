@@ -11,7 +11,9 @@ URL: http://srv-data01:30080/hex/hexcleanr
 RoxygenNote: 7.3.3
 Depends: R (>= 4.1.0)
 Imports: 
+    cld3,
     dplyr,
+    ellmer,
     ggplot2,
     janitor,
     jsonlite,
@@ -23,3 +25,7 @@ Imports:
     reticulate,
     tibble,
     tidyr
+Suggests: 
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
