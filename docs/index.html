@@ -38,6 +38,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/Stifterverband/HEXCleanR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -46,43 +47,37 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="hexcleanr-">HEXCleanR <img src="reference/figures/HEXCleanR_Logo.svg" align="right" height="139"><a class="anchor" aria-label="anchor" href="#hexcleanr-"></a>
+<div class="page-header"><h1 id="hexcleanr-">HEXCleanR <img src="reference/figures/HEXCleanR_Logo.png" width="180" alt="HEXCleanR Logo" align="right"><a class="anchor" aria-label="anchor" href="#hexcleanr-"></a>
 </h1></div>
 <div class="section level2">
-<h2 id="beschreibung">Beschreibung<a class="anchor" aria-label="anchor" href="#beschreibung"></a>
+<h2 id="hintergrund">Hintergrund<a class="anchor" aria-label="anchor" href="#hintergrund"></a>
 </h2>
-<p>Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a. insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.</p>
+<p><code>HEXCleanR</code> stellt verschiedene Funktionen zur qualitätsgesicherten Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem Erkennen auffälliger Veränderungen in kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen. Darüber hinaus werden verschiedene Hilfsfunktionen angeboten, um beispielsweise Missings über Variablen und Semester hinweg intuitiv zu detektieren oder Scrapingdaten verschiedener Formate kompakt zu laden.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p><code>HEXCleanR</code> kann folgendermaßen installiert werden:</p>
-<p>Installiere zuerst das Hilfspaket <code>remotes</code>, falls noch nicht vorhanden:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
-<p>Installation von der öffentlichen GitHub-Repository:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"maltehueckstaedt/HEXCleanR"</span><span class="op">)</span></span></code></pre></div>
+<p>Paket aktualisieren: Einfach den Installationsbefehl mit <code>force = TRUE</code> ausführen, um die neueste Version von GitHub zu installieren:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"maltehueckstaedt/HEXCleanR"</span><span class="op">)</span></span></code></pre></div>
-<p>Paket aktualisieren: Einfach den Installationsbefehl erneut ausführen, um die neueste Version von GitHub zu installieren:</p>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"maltehueckstaedt/HEXCleanR"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Installation eines bestimmten Branches:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"maltehueckstaedt/HEXCleanR"</span><span class="op">)</span></span></code></pre></div>
-<p>Installation eines bestimmten Branches oder Commits:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"maltehueckstaedt/HEXCleanR"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></span></code></pre></div>
-<p>Alternative: Installation vom internen Git-Server (bestehende Anleitung)</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html" class="external-link">install_git</a></span><span class="op">(</span><span class="st">"http://srv-data01:30080/hex/hexcleanr"</span><span class="op">)</span></span></code></pre></div>
-<p>Wenn das Paket vom internen Server mit Überschreiben/Erzwungener Neuinstallation installiert werden soll, kann <code>force = TRUE</code> verwendet werden:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html" class="external-link">install_git</a></span><span class="op">(</span><span class="st">"http://srv-data01:30080/hex/hexcleanr"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="dokumentation">Dokumentation<a class="anchor" aria-label="anchor" href="#dokumentation"></a>
-</h2>
-<p>Die Dokumentation von <code>HEXcleanR</code> soll mittelfristig als Gitlab-Pages bereitgestellt werden (Johannes eroiert das Feature für GitLab derzeit). Bis dahin kann die als <code>.pdf</code> vorliegende Dokumentation genutzt werden. Diese findest sich <a href="http://srv-data01:30080/hex/hexcleanr/-/raw/main/docs/manual/HEXCleanR_0.5.13.pdf?inline=false" class="external-link">hier</a>.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/Stifterverband/HEXCleanR/">Browse source code</a></li>
+<li><a href="https://github.com/Stifterverband/HEXCleanR/issues">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>

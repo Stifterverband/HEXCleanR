@@ -7,7 +7,8 @@ Description: Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufberei
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-URL: http://srv-data01:30080/hex/hexcleanr
+URL: https://github.com/Stifterverband/HEXCleanR
+BugReports: https://github.com/Stifterverband/HEXCleanR/issues
 RoxygenNote: 7.3.3
 Depends: R (>= 4.1.0)
 Imports: 

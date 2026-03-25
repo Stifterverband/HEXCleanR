@@ -1,4 +1,5 @@
-# HEXCleanR <img src="man/figures/HEXCleanR_Logo.png" alt="HEXCleanR Logo" align="right" height="250" />
+# HEXCleanR <img src="man/figures/HEXCleanR_Logo.png" width="180" alt="HEXCleanR Logo" align="right" />
+
 
 ## Hintergrund
 
@@ -24,7 +25,3 @@ Installation eines bestimmten Branches:
 ```r
 remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
 ```
-
-## Dokumentation
-
-Eine ausführliche Dokumentation von `HEXcleanR` findet sich hier: https://stifterverband.github.io/HEXCleanR/

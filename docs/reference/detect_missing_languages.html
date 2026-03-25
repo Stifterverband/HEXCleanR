@@ -41,6 +41,7 @@ kursbeschreibung_sprach geschrieben.
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/Stifterverband/HEXCleanR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -50,7 +51,7 @@ kursbeschreibung_sprach geschrieben.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Ergänzt fehlende Sprachinformationen in Kursdaten</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/Stifterverband/HEXCleanR/blob/HEAD/R/detect_missing_languages.R"><code>R/detect_missing_languages.R</code></a></small>
       <div class="d-none name"><code>detect_missing_languages.Rd</code></div>
     </div>
 
@@ -62,7 +63,7 @@ kursbeschreibung_sprach geschrieben.
 Bereits vorhandene Werte in <code>raw_data</code> werden dabei nicht überschrieben.</p><ol><li><p>Wenn nur ein <code>titel</code> vorliegt und <code>kursbeschreibung</code> fehlt, wird
 <code><a href="detect_lang_with_openai.html">detect_lang_with_openai()</a></code> auf diese Zeilen angewendet.</p></li>
 <li><p>Wenn <code>kursbeschreibung</code> vorhanden ist, wird die Sprache der
-Kursbeschreibung mit <code><a href="https://docs.ropensci.org/cld3/reference/cld3.html" class="external-link">cld3::detect_language()</a></code> bestimmt und in
+Kursbeschreibung mit <code>cld3::detect_language()</code> bestimmt und in
 <code>kursbeschreibung_sprach</code> geschrieben.</p></li>
 </ol></div>
 
@@ -134,7 +135,7 @@ erkannte Sprache der Kursbeschreibung. Standard ist
     <p>Bestehende Werte in <code>sprache_recoded</code> und <code>kursbeschreibung_sprach</code> werden
 nicht überschrieben.
 Die Funktion gibt außerdem aus, wie viele Zeilen über den normalen Weg mit
-<code><a href="https://docs.ropensci.org/cld3/reference/cld3.html" class="external-link">cld3::detect_language()</a></code> und wie viele über OpenAI bearbeitet wurden.
+<code>cld3::detect_language()</code> und wie viele über OpenAI bearbeitet wurden.
 Wenn OpenAI-Fälle anstehen, aber kein <code>OPENAI_API_KEY</code> gesetzt ist, wird eine
 Warnung ausgegeben und der OpenAI-Zweig übersprungen.</p>
     </div>

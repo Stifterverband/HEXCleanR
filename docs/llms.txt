@@ -1,122 +1,99 @@
-# HEXCleanR ![](reference/figures/HEXCleanR_Logo.svg)
+# HEXCleanR ![HEXCleanR Logo](reference/figures/HEXCleanR_Logo.png)
 
-## Beschreibung
+## Hintergrund
 
-Das Paket stellt Hilfsfunktionen zur qualitätsgesicherten Aufbereitung
-und Bereinigung der im HEX anfallenden Daten bereit. Es unterstützt u.a.
-insbesondere bei der Prüfung und Säuberung von Organisationsangaben, dem
-Erkennen auffälliger Veränderungen in kategorialen Merkmalen über
-Semester hinweg sowie der Vereinheitlichung und Plausibilisierung von
-Rohdaten aus unterschiedlichen Quellen.
+`HEXCleanR` stellt verschiedene Funktionen zur qualitätsgesicherten
+Aufbereitung und Bereinigung der im HEX anfallenden Daten bereit. Es
+unterstützt insbesondere bei der Prüfung und Säuberung von
+Organisationsangaben, dem Erkennen auffälliger Veränderungen in
+kategorialen Merkmalen über Semester hinweg sowie der Vereinheitlichung
+und Plausibilisierung von Rohdaten aus unterschiedlichen Quellen.
+Darüber hinaus werden verschiedene Hilfsfunktionen angeboten, um
+beispielsweise Missings über Variablen und Semester hinweg intuitiv zu
+detektieren oder Scrapingdaten verschiedener Formate kompakt zu laden.
 
 ## Installation
 
 `HEXCleanR` kann folgendermaßen installiert werden:
 
-Installiere zuerst das Hilfspaket `remotes`, falls noch nicht vorhanden:
-
 ``` r
 
 install.packages("remotes")
-```
-
-Installation von der öffentlichen GitHub-Repository:
-
-``` r
-
 remotes::install_github("maltehueckstaedt/HEXCleanR")
 ```
 
-Paket aktualisieren: Einfach den Installationsbefehl erneut ausführen,
-um die neueste Version von GitHub zu installieren:
+Paket aktualisieren: Einfach den Installationsbefehl mit `force = TRUE`
+ausführen, um die neueste Version von GitHub zu installieren:
 
 ``` r
 
-remotes::install_github("maltehueckstaedt/HEXCleanR")
+remotes::install_github("maltehueckstaedt/HEXCleanR", force = TRUE)
 ```
 
-Installation eines bestimmten Branches oder Commits:
+Installation eines bestimmten Branches:
 
 ``` r
 
 remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
 ```
 
-Alternative: Installation vom internen Git-Server (bestehende Anleitung)
-
-``` r
-
-remotes::install_git("http://srv-data01:30080/hex/hexcleanr")
-```
-
-Wenn das Paket vom internen Server mit Überschreiben/Erzwungener
-Neuinstallation installiert werden soll, kann `force = TRUE` verwendet
-werden:
-
-``` r
-
-remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
-```
-
-## Dokumentation
-
-Die Dokumentation von `HEXcleanR` soll mittelfristig als Gitlab-Pages
-bereitgestellt werden (Johannes eroiert das Feature für GitLab derzeit).
-Bis dahin kann die als `.pdf` vorliegende Dokumentation genutzt werden.
-Diese findest sich
-[hier](http://srv-data01:30080/hex/hexcleanr/-/raw/main/docs/manual/HEXCleanR_0.5.13.pdf?inline=false).
-
 # Package index
 
 ## All functions
 
-- [`check_db()`](check_db.md) :
+- [`check_db()`](https://github.com/Stifterverband/HEXCleanR/reference/check_db.md)
+  :
 
   Sicherheitscheck für die `db_data.rds` einer Universität
 
-- [`check_distinct_level_change()`](check_distinct_level_change.md) :
-  Prüft Distinct-Werte-Änderungen für eine spezifische Variable
+- [`check_distinct_level_change()`](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change.md)
+  : Prüft Distinct-Werte-Änderungen für eine spezifische Variable
 
-- [`check_distinct_level_change_df()`](check_distinct_level_change_df.md)
+- [`check_distinct_level_change_df()`](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change_df.md)
   : Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes
 
-- [`check_nas()`](check_nas.md) : Visualisiert NA-Konzentration nach
-  Semester
+- [`check_nas()`](https://github.com/Stifterverband/HEXCleanR/reference/check_nas.md)
+  : Visualisiert NA-Konzentration nach Semester
 
-- [`check_organisation()`](check_organisation.md) : Prüft
-  Organisations-Variable auf definierte Qualitätsregeln
+- [`check_organisation()`](https://github.com/Stifterverband/HEXCleanR/reference/check_organisation.md)
+  : Prüft Organisations-Variable auf definierte Qualitätsregeln
 
-- [`check_semester_n()`](check_semester_n.md) :
+- [`check_semester_n()`](https://github.com/Stifterverband/HEXCleanR/reference/check_semester_n.md)
+  :
 
   Gibt Zeilenzahlen pro `source_file` aus und gibt die Daten zurueck
 
-- [`classify_fs()`](classify_fs.md) : Klassifiziert Kursdaten mit
-  SetFit-Modell und pflegt neue Labels ein
+- [`classify_fs()`](https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.md)
+  : Klassifiziert Kursdaten mit SetFit-Modell und pflegt neue Labels ein
 
-- [`detect_lang_with_openai()`](detect_lang_with_openai.md) : Detektiert
-  die Sprache in einer Spalte eines Dataframes mittels OpenAI GPT-API
+- [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md)
+  : Detektiert die Sprache in einer Spalte eines Dataframes mittels
+  OpenAI GPT-API
 
-- [`detect_missing_languages()`](detect_missing_languages.md) : Ergänzt
-  fehlende Sprachinformationen in Kursdaten
+- [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
+  : Ergänzt fehlende Sprachinformationen in Kursdaten
 
-- [`drop_full_na_columns()`](drop_full_na_columns.md) : Gibt NA-Anteile
-  pro Variable aus und entfernt 100%-NA-Spalten
+- [`drop_full_na_columns()`](https://github.com/Stifterverband/HEXCleanR/reference/drop_full_na_columns.md)
+  : Gibt NA-Anteile pro Variable aus und entfernt 100%-NA-Spalten
 
-- [`load_data_from_sp()`](load_data_from_sp.md) :
+- [`load_data_from_sp()`](https://github.com/Stifterverband/HEXCleanR/reference/load_data_from_sp.md)
+  :
 
   Laedt `course_data`-Dateien rekursiv aus einem Hochschulordner
 
-- [`plot_na_balloons()`](plot_na_balloons.md) : Visualisiert fehlende
-  Werte pro Variable und Gruppierung als Balloon Plot
+- [`plot_na_balloons()`](https://github.com/Stifterverband/HEXCleanR/reference/plot_na_balloons.md)
+  : Visualisiert fehlende Werte pro Variable und Gruppierung als Balloon
+  Plot
 
-- [`remove_semantic_na_values()`](remove_semantic_na_values.md) : Setzt
-  Werte einer String-Variable NA, wenn diese weniger als 20 Zeichen
-  enthalten
+- [`remove_semantic_na_values()`](https://github.com/Stifterverband/HEXCleanR/reference/remove_semantic_na_values.md)
+  : Setzt Werte einer String-Variable NA, wenn diese weniger als 20
+  Zeichen enthalten
 
-- [`squish_character_columns()`](squish_character_columns.md) :
+- [`squish_character_columns()`](https://github.com/Stifterverband/HEXCleanR/reference/squish_character_columns.md)
+  :
 
   Fuehrt `str_squish()` auf allen Character-Variablen aus
 
-- [`use_cleaning_template()`](use_cleaning_template.md) : Erzeugt ein
-  Cleaning-Template im aktuellen Projekt
+- [`use_cleaning_template()`](https://github.com/Stifterverband/HEXCleanR/reference/use_cleaning_template.md)
+  : Erzeugt ein Cleaning-Template im aktuellen Projekt
 

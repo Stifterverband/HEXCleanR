@@ -1,8 +1,8 @@
 # Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes
 
 Diese Hilfsfunktion ruft intern für jede Nicht-Gruppierungsvariable
-[`check_distinct_level_change()`](check_distinct_level_change.md) auf
-und fasst die Ergebnisse zu einem gemeinsamen `tibble` zusammen.
+[`check_distinct_level_change()`](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change.md)
+auf und fasst die Ergebnisse zu einem gemeinsamen `tibble` zusammen.
 Standardmäßig werden nur die Einträge zurückgegeben, die als auffällig
 markiert (`flagged == TRUE`) sind.
 
@@ -78,7 +78,7 @@ markiert.
 
 ## See also
 
-[check_distinct_level_change](check_distinct_level_change.md)
+[check_distinct_level_change](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change.md)
 
 ## Examples
 

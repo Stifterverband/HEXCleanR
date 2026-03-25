@@ -2,3 +2,4 @@ template:
   bootstrap: 5
 
 logo: man/figures/HEXCleanR_Logo.png
+url: https://github.com/Stifterverband/HEXCleanR

@@ -2,52 +2,58 @@
 
 ## All functions
 
-- [`check_db()`](check_db.md) :
+- [`check_db()`](https://github.com/Stifterverband/HEXCleanR/reference/check_db.md)
+  :
 
   Sicherheitscheck für die `db_data.rds` einer Universität
 
-- [`check_distinct_level_change()`](check_distinct_level_change.md) :
-  Prüft Distinct-Werte-Änderungen für eine spezifische Variable
+- [`check_distinct_level_change()`](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change.md)
+  : Prüft Distinct-Werte-Änderungen für eine spezifische Variable
 
-- [`check_distinct_level_change_df()`](check_distinct_level_change_df.md)
+- [`check_distinct_level_change_df()`](https://github.com/Stifterverband/HEXCleanR/reference/check_distinct_level_change_df.md)
   : Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes
 
-- [`check_nas()`](check_nas.md) : Visualisiert NA-Konzentration nach
-  Semester
+- [`check_nas()`](https://github.com/Stifterverband/HEXCleanR/reference/check_nas.md)
+  : Visualisiert NA-Konzentration nach Semester
 
-- [`check_organisation()`](check_organisation.md) : Prüft
-  Organisations-Variable auf definierte Qualitätsregeln
+- [`check_organisation()`](https://github.com/Stifterverband/HEXCleanR/reference/check_organisation.md)
+  : Prüft Organisations-Variable auf definierte Qualitätsregeln
 
-- [`check_semester_n()`](check_semester_n.md) :
+- [`check_semester_n()`](https://github.com/Stifterverband/HEXCleanR/reference/check_semester_n.md)
+  :
 
   Gibt Zeilenzahlen pro `source_file` aus und gibt die Daten zurueck
 
-- [`classify_fs()`](classify_fs.md) : Klassifiziert Kursdaten mit
-  SetFit-Modell und pflegt neue Labels ein
+- [`classify_fs()`](https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.md)
+  : Klassifiziert Kursdaten mit SetFit-Modell und pflegt neue Labels ein
 
-- [`detect_lang_with_openai()`](detect_lang_with_openai.md) : Detektiert
-  die Sprache in einer Spalte eines Dataframes mittels OpenAI GPT-API
+- [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md)
+  : Detektiert die Sprache in einer Spalte eines Dataframes mittels
+  OpenAI GPT-API
 
-- [`detect_missing_languages()`](detect_missing_languages.md) : Ergänzt
-  fehlende Sprachinformationen in Kursdaten
+- [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
+  : Ergänzt fehlende Sprachinformationen in Kursdaten
 
-- [`drop_full_na_columns()`](drop_full_na_columns.md) : Gibt NA-Anteile
-  pro Variable aus und entfernt 100%-NA-Spalten
+- [`drop_full_na_columns()`](https://github.com/Stifterverband/HEXCleanR/reference/drop_full_na_columns.md)
+  : Gibt NA-Anteile pro Variable aus und entfernt 100%-NA-Spalten
 
-- [`load_data_from_sp()`](load_data_from_sp.md) :
+- [`load_data_from_sp()`](https://github.com/Stifterverband/HEXCleanR/reference/load_data_from_sp.md)
+  :
 
   Laedt `course_data`-Dateien rekursiv aus einem Hochschulordner
 
-- [`plot_na_balloons()`](plot_na_balloons.md) : Visualisiert fehlende
-  Werte pro Variable und Gruppierung als Balloon Plot
+- [`plot_na_balloons()`](https://github.com/Stifterverband/HEXCleanR/reference/plot_na_balloons.md)
+  : Visualisiert fehlende Werte pro Variable und Gruppierung als Balloon
+  Plot
 
-- [`remove_semantic_na_values()`](remove_semantic_na_values.md) : Setzt
-  Werte einer String-Variable NA, wenn diese weniger als 20 Zeichen
-  enthalten
+- [`remove_semantic_na_values()`](https://github.com/Stifterverband/HEXCleanR/reference/remove_semantic_na_values.md)
+  : Setzt Werte einer String-Variable NA, wenn diese weniger als 20
+  Zeichen enthalten
 
-- [`squish_character_columns()`](squish_character_columns.md) :
+- [`squish_character_columns()`](https://github.com/Stifterverband/HEXCleanR/reference/squish_character_columns.md)
+  :
 
   Fuehrt `str_squish()` auf allen Character-Variablen aus
 
-- [`use_cleaning_template()`](use_cleaning_template.md) : Erzeugt ein
-  Cleaning-Template im aktuellen Projekt
+- [`use_cleaning_template()`](https://github.com/Stifterverband/HEXCleanR/reference/use_cleaning_template.md)
+  : Erzeugt ein Cleaning-Template im aktuellen Projekt

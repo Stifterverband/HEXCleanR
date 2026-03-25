@@ -19,6 +19,7 @@
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/Stifterverband/HEXCleanR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -28,12 +29,13 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-
+      <small>Source: <a href="https://github.com/Stifterverband/HEXCleanR/blob/HEAD/NEWS.md"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.17" id="hexcleanr-0517">HEXCleanR 0.5.17<a class="anchor" aria-label="anchor" href="#hexcleanr-0517"></a></h2>
-<ul><li>Neue Funktion <code><a href="../reference/detect_missing_languages.html">detect_missing_languages()</a></code>, die fehlende Sprachinformationen in Kursdaten ergänzt: vorhandene Sprachwerte werden zunächst ggf. per <code>titel</code> aus der DB übernommen, offene Fälle mit <code>kursbeschreibung</code> über <code>cld3</code> verarbeitet und Titel ohne <code>kursbeschreibung</code> optional über OpenAI klassifiziert.</li>
+<ul><li>
+<code><a href="../reference/detect_missing_languages.html">detect_missing_languages()</a></code> ergänzt fehlende Sprachinformationen in Kursdaten: vorhandene Werte der Variable <code>sprache_recoded</code> werden zunächst ggf. aus der DB übernommen, offene Fälle mit <code>kursbeschreibung</code> über <code>cld3</code> verarbeitet und Kurse ohne <code>kursbeschreibung</code> optional über OpenAI klassifiziert.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.16" id="hexcleanr-0516">HEXCleanR 0.5.16<a class="anchor" aria-label="anchor" href="#hexcleanr-0516"></a></h2>
@@ -42,7 +44,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.15" id="hexcleanr-0515">HEXCleanR 0.5.15<a class="anchor" aria-label="anchor" href="#hexcleanr-0515"></a></h2>
-<ul><li>Neue Funktion <code><a href="../reference/load_data_from_sp.html">load_data_from_sp()</a></code>, um <code>course_data</code>-Dateien rekursiv aus einem Hochschulordner in der Stifterverband-OneDrive-Struktur zu laden, inklusive optionaler Bereinigung der Spaltennamen, <code>source_file</code>-Spalte und Umwandlung in <code>character</code>.</li>
+<ul><li>Neue Funktion <code><a href="../reference/load_data_from_sp.html">load_data_from_sp()</a></code>, um <code>course_data</code>-Dateien rekursiv aus einem Hochschulordner in der Stifterverband-OneDrive-Struktur zu laden.</li>
 <li>Neue pipeline-taugliche Helfer <code><a href="../reference/drop_full_na_columns.html">drop_full_na_columns()</a></code> und <code><a href="../reference/squish_character_columns.html">squish_character_columns()</a></code>, um Spalten mit 100% <code>NA</code> zu entfernen und Leerzeichen in allen Character-Spalten zu bereinigen, z. B. <code>load_data_from_sp(university_folder = UNIVERSITY_FOLDER) |&gt; drop_full_na_columns() |&gt; squish_character_columns()</code>.</li>
 <li>Neue Funktion <code><a href="../reference/check_semester_n.html">check_semester_n()</a></code>, die Zeilenzahlen pro <code>source_file</code> in der Konsole ausgibt und den ursprünglichen Datensatz unverändert zurückgibt, z. B. in Pipelines wie <code>raw_data |&gt; check_semester_n()</code>.</li>
 <li>Neue Funktion <code><a href="../reference/plot_na_balloons.html">plot_na_balloons()</a></code>, um fehlende Werte nach Gruppierungsvariable als Balloon-Plot zu visualisieren, inklusive gedruckter NA-Tabelle, Farbverlauf in der Legende, sichtbaren Ballons auch bei <code>0 NA</code>, optionalen Labels und um 45 Grad gedrehter X-Achsenbeschriftung, z. B. <code>raw_data |&gt; plot_na_balloons(grp_var = semester_y)</code>.</li>
