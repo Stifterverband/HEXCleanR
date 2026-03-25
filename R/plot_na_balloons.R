@@ -15,7 +15,8 @@
 #' @param show_labels Logisch; wenn `TRUE`, werden Werte groesser 0 als Text im
 #'   Punkt angezeigt. Standardmaessig werden keine Zahlen eingeblendet.
 #' @param print_table Logisch; wenn `TRUE`, wird die aggregierte NA-Tabelle
-#'   sortiert in der Konsole ausgegeben.
+#'   sortiert in der Konsole ausgegeben. Standardmaessig ist dies deaktiviert
+#'   und erfolgt nur auf expliziten Befehl.
 #'
 #' @return Ein `ggplot`-Objekt.
 #' @importFrom dplyr group_by summarise filter
@@ -31,7 +32,7 @@ plot_na_balloons <- function(
   low_fill = "#ffffff",
   high_fill = "#e20000",
   show_labels = FALSE,
-  print_table = TRUE
+  print_table = FALSE
 ) {
   stopifnot(is.data.frame(data))
 

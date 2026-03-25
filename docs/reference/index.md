@@ -27,10 +27,6 @@
 - [`classify_fs()`](https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.md)
   : Klassifiziert Kursdaten mit SetFit-Modell und pflegt neue Labels ein
 
-- [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md)
-  : Detektiert die Sprache in einer Spalte eines Dataframes mittels
-  OpenAI GPT-API
-
 - [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
   : Ergänzt fehlende Sprachinformationen in Kursdaten
 

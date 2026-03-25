@@ -1,9 +1,0 @@
----
-title: "Data Preparation Universität Koblenz"
-format: html
-author: "Stifterverband"
-date: "2024-06-17"
----
-
-In diesem Abschnitt werden die Schritte zur Datenvorbereitung für die Universität Koblenz beschrieben. Die Daten wurden von der Universität Koblenz bereitgestellt und müssen vor der Analyse bereinigt und vorbereitet werden.
-

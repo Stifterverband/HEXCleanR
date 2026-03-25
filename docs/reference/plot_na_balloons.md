@@ -17,7 +17,7 @@ plot_na_balloons(
   low_fill = "#ffffff",
   high_fill = "#e20000",
   show_labels = FALSE,
-  print_table = TRUE
+  print_table = FALSE
 )
 ```
 
@@ -55,7 +55,8 @@ plot_na_balloons(
 - print_table:
 
   Logisch; wenn `TRUE`, wird die aggregierte NA-Tabelle sortiert in der
-  Konsole ausgegeben.
+  Konsole ausgegeben. Standardmaessig ist dies deaktiviert und erfolgt
+  nur auf expliziten Befehl.
 
 ## Value
 

@@ -7,12 +7,12 @@ DB übernommen. Bereits vorhandene Werte in `raw_data` werden dabei nicht
 überschrieben.
 
 1.  Wenn nur ein `titel` vorliegt und `kursbeschreibung` fehlt, wird
-    [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md)
-    auf diese Zeilen angewendet.
+    `detect_lang_with_openai()` auf diese Zeilen angewendet.
 
 2.  Wenn `kursbeschreibung` vorhanden ist, wird die Sprache der
-    Kursbeschreibung mit `cld3::detect_language()` bestimmt und in
-    `kursbeschreibung_sprach` geschrieben.
+    Kursbeschreibung mit
+    [`cld3::detect_language()`](https://docs.ropensci.org/cld3/reference/cld3.html)
+    bestimmt und in `kursbeschreibung_sprach` geschrieben.
 
 ## Usage
 
@@ -38,21 +38,17 @@ detect_missing_languages(
 - db_data_path:
 
   Optionaler Pfad zur RDS-Datei mit bestehenden Sprachklassifikationen
-  für
-  [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md).
-  Wenn `NULL` oder nicht vorhanden, wird ohne DB-Lookup gearbeitet.
+  für `detect_lang_with_openai()`. Wenn `NULL` oder nicht vorhanden,
+  wird ohne DB-Lookup gearbeitet.
 
 - export_path:
 
-  Pfad zum Sicherheits-Export für
-  [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md).
-  Standard ist `"db_safety_export.rds"`.
+  Pfad zum Sicherheits-Export für `detect_lang_with_openai()`. Standard
+  ist `"db_safety_export.rds"`.
 
 - batch_size:
 
-  Batch-Größe für
-  [`detect_lang_with_openai()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_lang_with_openai.md).
-  Standard ist `100`.
+  Batch-Größe für `detect_lang_with_openai()`. Standard ist `100`.
 
 - titel_col:
 
@@ -82,7 +78,8 @@ detect_missing_languages(
 
 Bestehende Werte in `sprache_recoded` und `kursbeschreibung_sprach`
 werden nicht überschrieben. Die Funktion gibt außerdem aus, wie viele
-Zeilen über den normalen Weg mit `cld3::detect_language()` und wie viele
-über OpenAI bearbeitet wurden. Wenn OpenAI-Fälle anstehen, aber kein
-`OPENAI_API_KEY` gesetzt ist, wird eine Warnung ausgegeben und der
-OpenAI-Zweig übersprungen.
+Zeilen über den normalen Weg mit
+[`cld3::detect_language()`](https://docs.ropensci.org/cld3/reference/cld3.html)
+und wie viele über OpenAI bearbeitet wurden. Wenn OpenAI-Fälle anstehen,
+aber kein `OPENAI_API_KEY` gesetzt ist, wird eine Warnung ausgegeben und
+der OpenAI-Zweig übersprungen.

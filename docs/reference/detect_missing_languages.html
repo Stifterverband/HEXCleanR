@@ -61,9 +61,9 @@ kursbeschreibung_sprach geschrieben.
 0. Falls <code>db_data_path</code> existiert, werden vorhandene gültige Werte in
 <code>sprache_recoded</code> zunächst anhand von <code>titel</code> aus der DB übernommen.
 Bereits vorhandene Werte in <code>raw_data</code> werden dabei nicht überschrieben.</p><ol><li><p>Wenn nur ein <code>titel</code> vorliegt und <code>kursbeschreibung</code> fehlt, wird
-<code><a href="detect_lang_with_openai.html">detect_lang_with_openai()</a></code> auf diese Zeilen angewendet.</p></li>
+<code>detect_lang_with_openai()</code> auf diese Zeilen angewendet.</p></li>
 <li><p>Wenn <code>kursbeschreibung</code> vorhanden ist, wird die Sprache der
-Kursbeschreibung mit <code>cld3::detect_language()</code> bestimmt und in
+Kursbeschreibung mit <code><a href="https://docs.ropensci.org/cld3/reference/cld3.html" class="external-link">cld3::detect_language()</a></code> bestimmt und in
 <code>kursbeschreibung_sprach</code> geschrieben.</p></li>
 </ol></div>
 
@@ -91,17 +91,17 @@ Kursbeschreibung mit <code>cld3::detect_language()</code> bestimmt und in
 
 <dt id="arg-db-data-path">db_data_path<a class="anchor" aria-label="anchor" href="#arg-db-data-path"></a></dt>
 <dd><p>Optionaler Pfad zur RDS-Datei mit bestehenden
-Sprachklassifikationen für <code><a href="detect_lang_with_openai.html">detect_lang_with_openai()</a></code>. Wenn <code>NULL</code> oder
+Sprachklassifikationen für <code>detect_lang_with_openai()</code>. Wenn <code>NULL</code> oder
 nicht vorhanden, wird ohne DB-Lookup gearbeitet.</p></dd>
 
 
 <dt id="arg-export-path">export_path<a class="anchor" aria-label="anchor" href="#arg-export-path"></a></dt>
 <dd><p>Pfad zum Sicherheits-Export für
-<code><a href="detect_lang_with_openai.html">detect_lang_with_openai()</a></code>. Standard ist <code>"db_safety_export.rds"</code>.</p></dd>
+<code>detect_lang_with_openai()</code>. Standard ist <code>"db_safety_export.rds"</code>.</p></dd>
 
 
 <dt id="arg-batch-size">batch_size<a class="anchor" aria-label="anchor" href="#arg-batch-size"></a></dt>
-<dd><p>Batch-Größe für <code><a href="detect_lang_with_openai.html">detect_lang_with_openai()</a></code>. Standard ist
+<dd><p>Batch-Größe für <code>detect_lang_with_openai()</code>. Standard ist
 <code>100</code>.</p></dd>
 
 
@@ -135,7 +135,7 @@ erkannte Sprache der Kursbeschreibung. Standard ist
     <p>Bestehende Werte in <code>sprache_recoded</code> und <code>kursbeschreibung_sprach</code> werden
 nicht überschrieben.
 Die Funktion gibt außerdem aus, wie viele Zeilen über den normalen Weg mit
-<code>cld3::detect_language()</code> und wie viele über OpenAI bearbeitet wurden.
+<code><a href="https://docs.ropensci.org/cld3/reference/cld3.html" class="external-link">cld3::detect_language()</a></code> und wie viele über OpenAI bearbeitet wurden.
 Wenn OpenAI-Fälle anstehen, aber kein <code>OPENAI_API_KEY</code> gesetzt ist, wird eine
 Warnung ausgegeben und der OpenAI-Zweig übersprungen.</p>
     </div>

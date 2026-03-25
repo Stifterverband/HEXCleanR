@@ -12,7 +12,7 @@ plot_na_balloons(
   low_fill = "#ffffff",
   high_fill = "#e20000",
   show_labels = FALSE,
-  print_table = TRUE
+  print_table = FALSE
 )
 }
 \arguments{
@@ -32,7 +32,8 @@ plot_na_balloons(
 Punkt angezeigt. Standardmaessig werden keine Zahlen eingeblendet.}
 
 \item{print_table}{Logisch; wenn \code{TRUE}, wird die aggregierte NA-Tabelle
-sortiert in der Konsole ausgegeben.}
+sortiert in der Konsole ausgegeben. Standardmaessig ist dies deaktiviert
+und erfolgt nur auf expliziten Befehl.}
 }
 \value{
 Ein \code{ggplot}-Objekt.
