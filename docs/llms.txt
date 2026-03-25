@@ -93,3 +93,9 @@ remotes::install_github("Stifterverband/HEXCleanR", ref = "dev")
 - [`use_cleaning_template()`](https://github.com/Stifterverband/HEXCleanR/reference/use_cleaning_template.md)
   : Erzeugt ein Cleaning-Template im aktuellen Projekt
 
+# Articles
+
+### All vignettes
+
+- [Data Preparation Universität
+  Koblenz](https://github.com/Stifterverband/HEXCleanR/articles/HEXCleanR.md):
