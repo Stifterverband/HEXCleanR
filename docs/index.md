@@ -1,4 +1,4 @@
-# HEXCleanR ![](reference/figures/HEXCleanR_Logo.svg)
+# HEXCleanR ![](reference/figures/HEXCleanR_Logo.png)
 
 ## Beschreibung
 

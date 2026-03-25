@@ -1,4 +1,5 @@
-# HEXCleanR <img src="man/figures/HEXCleanR_Logo.svg" align="right" height="139" />
+# HEXCleanR <img src="man/figures/HEXCleanR_Logo.png" align="right" height="250" />
+
 
 ## Beschreibung 
 
