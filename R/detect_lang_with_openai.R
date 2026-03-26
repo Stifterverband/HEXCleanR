@@ -39,6 +39,7 @@
 #' setzt die Modell-Temperatur auf `0`, um die Reproduzierbarkeit zu
 #' maximieren und "Kreativität" der KI zu unterbinden.
 #'
+#' @noRd
 #' @importFrom dplyr all_of coalesce distinct filter left_join mutate select
 #' @importFrom ellmer chat_openai parallel_chat
 #' @importFrom purrr map_chr

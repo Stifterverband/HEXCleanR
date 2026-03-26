@@ -11,17 +11,17 @@
 
 ```r
 install.packages("remotes")
-remotes::install_github("maltehueckstaedt/HEXCleanR")
+remotes::install_github("Stifterverband/HEXCleanR")
 ```
 
 Paket aktualisieren: Einfach den Installationsbefehl mit `force = TRUE` ausführen, um die neueste Version von GitHub zu installieren:
 
 ```r
-remotes::install_github("maltehueckstaedt/HEXCleanR", force = TRUE)
+remotes::install_github("Stifterverband/HEXCleanR", force = TRUE)
 ```
 
 Installation eines bestimmten Branches:
 
 ```r
-remotes::install_github("maltehueckstaedt/HEXCleanR", ref = "dev")
+remotes::install_github("Stifterverband/HEXCleanR", ref = "dev")
 ```
