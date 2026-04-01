@@ -1,5 +1,21 @@
 # Changelog
 
+## HEXCleanR 0.5.18
+
+- Neue Funktion
+  [`create_codebook_and_db_data()`](https://github.com/Stifterverband/HEXCleanR/reference/create_codebook_and_db_data.md),
+  um aus `raw_data` und `raw_data_fs` ein `codebook` sowie einen
+  `db_data`-Datensatz im erwarteten HEX-Format zu erzeugen. Die Funktion
+  prueft nun strikt, ob alle benoetigten Spalten vorhanden sind, und
+  setzt nur die fachlichen Metadatenfelder
+  (`lehr_und_forschungsbereich`, `studienbereich`, `faechergruppe`,
+  `luf_code`, `stub_code`, `fg_code`, `matchingart`) initial auf `NA`.
+- Neue Funktion
+  [`create_baby_dbs()`](https://github.com/Stifterverband/HEXCleanR/reference/create_baby_dbs.md),
+  um `db_data` semesterweise in vorhandene Semesterordner als
+  `db_data_<semester>.rds` zu speichern und fehlende Ordner sauber zu
+  melden.
+
 ## HEXCleanR 0.5.17
 
 - [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)

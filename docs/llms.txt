@@ -66,11 +66,26 @@ remotes::install_github("Stifterverband/HEXCleanR", ref = "dev")
 - [`classify_fs()`](https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.md)
   : Klassifiziert Kursdaten mit SetFit-Modell und pflegt neue Labels ein
 
+- [`create_baby_dbs()`](https://github.com/Stifterverband/HEXCleanR/reference/create_baby_dbs.md)
+  :
+
+  Speichert semesterweise Teilmengen von `db_data` als RDS-Dateien
+
+- [`create_codebook_and_db_data()`](https://github.com/Stifterverband/HEXCleanR/reference/create_codebook_and_db_data.md)
+  :
+
+  Erstellt `codebook` und `db_data` aus Rohdaten
+
 - [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
   : Ergänzt fehlende Sprachinformationen in Kursdaten
 
 - [`drop_full_na_columns()`](https://github.com/Stifterverband/HEXCleanR/reference/drop_full_na_columns.md)
   : Gibt NA-Anteile pro Variable aus und entfernt 100%-NA-Spalten
+
+- [`empty_str_to_na()`](https://github.com/Stifterverband/HEXCleanR/reference/empty_str_to_na.md)
+  :
+
+  Ersetzt leere Strings durch `NA`
 
 - [`load_data_from_sp()`](https://github.com/Stifterverband/HEXCleanR/reference/load_data_from_sp.md)
   :
