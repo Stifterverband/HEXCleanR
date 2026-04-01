@@ -12,8 +12,11 @@
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/check_organisation.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/check_semester_n.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/classify_fs.html</loc></url>
+<url><loc>https://github.com/Stifterverband/HEXCleanR/reference/create_baby_dbs.html</loc></url>
+<url><loc>https://github.com/Stifterverband/HEXCleanR/reference/create_codebook_and_db_data.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/drop_full_na_columns.html</loc></url>
+<url><loc>https://github.com/Stifterverband/HEXCleanR/reference/empty_str_to_na.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/get_unclassified_data.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/index.html</loc></url>
 <url><loc>https://github.com/Stifterverband/HEXCleanR/reference/load_data_from_sp.html</loc></url>

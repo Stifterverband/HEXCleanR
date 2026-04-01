@@ -9,7 +9,7 @@
 library(testthat)
 library(HEXCleanR)
 
-devtools::test()
+testthat::test_local()
 
 # Beispielaufruf mit 3 Key-Variablen
 remotes::install_git("http://srv-data01:30080/hex/hexcleanr", force = TRUE)
