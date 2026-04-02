@@ -1,5 +1,8 @@
 # HEXCleanR 0.5.19
 
+* `detect_missing_languages()` verarbeitet nun auch Zeilen, bei denen `cld3` trotz vorhandener `kursbeschreibung` keine Sprache erkennen konnte (z. B. bei formatiertem oder sehr kurzem Text). Diese Fälle werden jetzt als Fallback über den `titel` an OpenAI weitergegeben, statt unbearbeitet liegenzubleiben.
+* Bugfix: Innerhalb von `detect_missing_languages()` wurde `sprache_recoded` nach der `cld3`-Erkennung nicht befüllt, weil beide Spalten in einem einzigen `mutate()`-Aufruf berechnet wurden und dplyr dabei noch den alten `NA`-Wert von `kursbeschreibung_sprach` verwendete. Die zwei Berechnungen werden nun in getrennten `mutate()`-Aufrufen ausgeführt.
+
 # HEXCleanR 0.5.18
 
 * Neue Funktion `create_codebook_and_db_data()`, um aus `raw_data` und `raw_data_fs` ein `codebook` sowie einen `db_data`-Datensatz im erwarteten HEX-Format zu erzeugen. Die Funktion prueft nun strikt, ob alle benoetigten Spalten vorhanden sind, und setzt nur die fachlichen Metadatenfelder (`lehr_und_forschungsbereich`, `studienbereich`, `faechergruppe`, `luf_code`, `stub_code`, `fg_code`, `matchingart`) initial auf `NA`.
