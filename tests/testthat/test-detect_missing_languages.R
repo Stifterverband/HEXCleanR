@@ -73,12 +73,7 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   # Ergebnispruefung:
   # - erste Zeile aus DB
   # - zweite Zeile aus dem OpenAI-Mock
-  # - dritte Zeile behaelt NA in sprache_recoded, weil hier die Beschreibungssprache
-  #   separat in kursbeschreibung_sprach landet
-  expect_identical(
-    result$sprache_recoded,
-    c("Deutsch", "Englisch", NA_character_)
-  )
+  expect_identical(result$sprache_recoded[1:2], c("Deutsch", "Englisch"))
   # Nur der noch offene Titel darf an den OpenAI-Helfer weitergereicht werden.
   expect_identical(helper_titles, "Nur Titel offen")
   # Fuer die ersten beiden Zeilen gibt es keine Beschreibung, daher bleibt die
@@ -86,9 +81,66 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   expect_true(is.na(result$kursbeschreibung_sprach[1]))
   expect_true(is.na(result$kursbeschreibung_sprach[2]))
   # In der dritten Zeile wurde eine Beschreibung analysiert; deshalb erwarten wir
-  # dort irgendeinen nicht-leeren Zeichenwert.
+  # dort irgendeinen nicht-leeren Zeichenwert sowie eine Recodierung in sprache_recoded.
   expect_false(is.na(result$kursbeschreibung_sprach[3]))
   expect_type(result$kursbeschreibung_sprach[3], "character")
+  expect_false(is.na(result$sprache_recoded[3]))
+})
+
+test_that("detect_missing_languages recodiert erkannte Beschreibungssprache nach sprache_recoded", {
+  raw_data <- data.frame(
+    titel = c("English title", "Deutscher Titel"),
+    kursbeschreibung = c(
+      "This is a detailed English course description with enough text for detection.",
+      "Dies ist eine ausfuehrliche deutsche Kursbeschreibung mit genug Text fuer die Spracherkennung."
+    ),
+    sprache_recoded = c(NA_character_, NA_character_),
+    kursbeschreibung_sprach = c("en", "de"),
+    stringsAsFactors = FALSE
+  )
+
+  result <- detect_missing_languages(raw_data = raw_data, db_data_path = NULL)
+
+  expect_identical(result$sprache_recoded, c("Englisch", "Deutsch"))
+  expect_identical(result$kursbeschreibung_sprach, c("en", "de"))
+})
+
+test_that("detect_missing_languages behandelt leere Strings wie fehlende Werte", {
+  helper_titles <- character()
+
+  withr::local_envvar(c(OPENAI_API_KEY = "test-key"))
+
+  local_mocked_bindings(
+    detect_lang_with_openai = function(df, spalte, db_data_path,
+                                       export_path = "db_safety_export.rds",
+                                       batch_size = 100) {
+      helper_titles <<- df[[spalte]]
+      df$sprache_recoded <- "Deutsch"
+      df
+    },
+    .package = "HEXCleanR"
+  )
+
+  raw_data <- data.frame(
+    titel = c("Titel nur mit Leerstring", "Titel mit Beschreibung"),
+    kursbeschreibung = c("   ", "Ausfuehrliche deutsche Kursbeschreibung mit genug Text."),
+    sprache_recoded = c("", ""),
+    kursbeschreibung_sprach = c("", ""),
+    stringsAsFactors = FALSE
+  )
+
+  expect_message(
+    expect_message(
+      result <- detect_missing_languages(raw_data = raw_data, db_data_path = NULL),
+      "1 Zeilen wurden ueber den normalen Weg mit cld3 bearbeitet\\."
+    ),
+    "1 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
+  )
+
+  expect_identical(helper_titles, "Titel nur mit Leerstring")
+  expect_identical(result$sprache_recoded[1], "Deutsch")
+  expect_false(is.na(result$sprache_recoded[2]))
+  expect_false(is.na(result$kursbeschreibung_sprach[2]))
 })
 
 # Deckt den Sonderfall ohne kursbeschreibung-Spalte ab:

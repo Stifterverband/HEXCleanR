@@ -1,5 +1,24 @@
 # Changelog
 
+## HEXCleanR 0.5.19
+
+- [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
+  verarbeitet nun auch Zeilen, bei denen `cld3` trotz vorhandener
+  `kursbeschreibung` keine Sprache erkennen konnte (z. B. bei
+  formatiertem oder sehr kurzem Text). Diese Fälle werden jetzt als
+  Fallback über den `titel` an OpenAI weitergegeben, statt unbearbeitet
+  liegenzubleiben.
+- Bugfix: Innerhalb von
+  [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
+  wurde `sprache_recoded` nach der `cld3`-Erkennung nicht befüllt, weil
+  beide Spalten in einem einzigen
+  [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)-Aufruf
+  berechnet wurden und dplyr dabei noch den alten `NA`-Wert von
+  `kursbeschreibung_sprach` verwendete. Die zwei Berechnungen werden nun
+  in getrennten
+  [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)-Aufrufen
+  ausgeführt.
+
 ## HEXCleanR 0.5.18
 
 - Neue Funktion
