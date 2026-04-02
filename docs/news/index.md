@@ -1,5 +1,10 @@
 # Changelog
 
+## HEXCleanR 0.5.20
+
+Bugfix: Sprachen werden ohne umlaute codiert. Das führt zu Problemen
+beim Sicherheitscheck, der z.B. `Türkisch` nicht `Tuerkisch` erwartet.
+
 ## HEXCleanR 0.5.19
 
 - [`detect_missing_languages()`](https://github.com/Stifterverband/HEXCleanR/reference/detect_missing_languages.md)
