@@ -55,13 +55,13 @@ detect_missing_languages <- function(raw_data,
       is.na(x) ~ NA_character_,
       x == "en" ~ "Englisch",
       x == "de" ~ "Deutsch",
-      x == "fr" ~ "Franzoesisch",
+      x == "fr" ~ "Französisch",
       x == "es" ~ "Spanisch",
       x == "it" ~ "Italienisch",
       x == "ru" ~ "Russisch",
-      x == "tr" ~ "Tuerkisch",
+      x == "tr" ~ "Türkisch",
       x == "pt" ~ "Portugiesisch",
-      x == "nl" ~ "Niederlaendisch",
+      x == "nl" ~ "Niederländisch",
       TRUE ~ "Sonstiges"
     )
   }
