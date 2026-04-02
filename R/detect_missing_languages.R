@@ -50,6 +50,22 @@ detect_missing_languages <- function(raw_data,
                                     sprache_col = "sprache_recoded",
                                     kursbeschreibung_sprach_col = "kursbeschreibung_sprach") {
 
+  recode_detected_language <- function(x) {
+    dplyr::case_when(
+      is.na(x) ~ NA_character_,
+      x == "en" ~ "Englisch",
+      x == "de" ~ "Deutsch",
+      x == "fr" ~ "Franzoesisch",
+      x == "es" ~ "Spanisch",
+      x == "it" ~ "Italienisch",
+      x == "ru" ~ "Russisch",
+      x == "tr" ~ "Tuerkisch",
+      x == "pt" ~ "Portugiesisch",
+      x == "nl" ~ "Niederlaendisch",
+      TRUE ~ "Sonstiges"
+    )
+  }
+
   # Merkt sich Spalten, die nur fuer die interne Verarbeitung erzeugt wurden.
   created_helper_cols <- character()
 
@@ -154,6 +170,12 @@ detect_missing_languages <- function(raw_data,
           is.na(.data[[kursbeschreibung_sprach_col]]),
         cld3::detect_language(.data[[kursbeschreibung_col]]),
         .data[[kursbeschreibung_sprach_col]]
+      ),
+      !!sprache_col := dplyr::if_else(
+        is.na(.data[[sprache_col]]) &
+          !is.na(.data[[kursbeschreibung_sprach_col]]),
+        recode_detected_language(.data[[kursbeschreibung_sprach_col]]),
+        .data[[sprache_col]]
       )
     )
 

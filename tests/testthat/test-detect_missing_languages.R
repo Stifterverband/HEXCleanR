@@ -73,12 +73,7 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   # Ergebnispruefung:
   # - erste Zeile aus DB
   # - zweite Zeile aus dem OpenAI-Mock
-  # - dritte Zeile behaelt NA in sprache_recoded, weil hier die Beschreibungssprache
-  #   separat in kursbeschreibung_sprach landet
-  expect_identical(
-    result$sprache_recoded,
-    c("Deutsch", "Englisch", NA_character_)
-  )
+  expect_identical(result$sprache_recoded[1:2], c("Deutsch", "Englisch"))
   # Nur der noch offene Titel darf an den OpenAI-Helfer weitergereicht werden.
   expect_identical(helper_titles, "Nur Titel offen")
   # Fuer die ersten beiden Zeilen gibt es keine Beschreibung, daher bleibt die
@@ -86,9 +81,28 @@ test_that("detect_missing_languages nutzt zuerst DB-Lookup und verarbeitet nur R
   expect_true(is.na(result$kursbeschreibung_sprach[1]))
   expect_true(is.na(result$kursbeschreibung_sprach[2]))
   # In der dritten Zeile wurde eine Beschreibung analysiert; deshalb erwarten wir
-  # dort irgendeinen nicht-leeren Zeichenwert.
+  # dort irgendeinen nicht-leeren Zeichenwert sowie eine Recodierung in sprache_recoded.
   expect_false(is.na(result$kursbeschreibung_sprach[3]))
   expect_type(result$kursbeschreibung_sprach[3], "character")
+  expect_false(is.na(result$sprache_recoded[3]))
+})
+
+test_that("detect_missing_languages recodiert erkannte Beschreibungssprache nach sprache_recoded", {
+  raw_data <- data.frame(
+    titel = c("English title", "Deutscher Titel"),
+    kursbeschreibung = c(
+      "This is a detailed English course description with enough text for detection.",
+      "Dies ist eine ausfuehrliche deutsche Kursbeschreibung mit genug Text fuer die Spracherkennung."
+    ),
+    sprache_recoded = c(NA_character_, NA_character_),
+    kursbeschreibung_sprach = c("en", "de"),
+    stringsAsFactors = FALSE
+  )
+
+  result <- detect_missing_languages(raw_data = raw_data, db_data_path = NULL)
+
+  expect_identical(result$sprache_recoded, c("Englisch", "Deutsch"))
+  expect_identical(result$kursbeschreibung_sprach, c("en", "de"))
 })
 
 # Deckt den Sonderfall ohne kursbeschreibung-Spalte ab:
