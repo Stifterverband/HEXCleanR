@@ -105,6 +105,44 @@ test_that("detect_missing_languages recodiert erkannte Beschreibungssprache nach
   expect_identical(result$kursbeschreibung_sprach, c("en", "de"))
 })
 
+test_that("detect_missing_languages behandelt leere Strings wie fehlende Werte", {
+  helper_titles <- character()
+
+  withr::local_envvar(c(OPENAI_API_KEY = "test-key"))
+
+  local_mocked_bindings(
+    detect_lang_with_openai = function(df, spalte, db_data_path,
+                                       export_path = "db_safety_export.rds",
+                                       batch_size = 100) {
+      helper_titles <<- df[[spalte]]
+      df$sprache_recoded <- "Deutsch"
+      df
+    },
+    .package = "HEXCleanR"
+  )
+
+  raw_data <- data.frame(
+    titel = c("Titel nur mit Leerstring", "Titel mit Beschreibung"),
+    kursbeschreibung = c("   ", "Ausfuehrliche deutsche Kursbeschreibung mit genug Text."),
+    sprache_recoded = c("", ""),
+    kursbeschreibung_sprach = c("", ""),
+    stringsAsFactors = FALSE
+  )
+
+  expect_message(
+    expect_message(
+      result <- detect_missing_languages(raw_data = raw_data, db_data_path = NULL),
+      "1 Zeilen wurden ueber den normalen Weg mit cld3 bearbeitet\\."
+    ),
+    "1 Zeilen wurden ueber OpenAI/ChatGPT bearbeitet\\."
+  )
+
+  expect_identical(helper_titles, "Titel nur mit Leerstring")
+  expect_identical(result$sprache_recoded[1], "Deutsch")
+  expect_false(is.na(result$sprache_recoded[2]))
+  expect_false(is.na(result$kursbeschreibung_sprach[2]))
+})
+
 # Deckt den Sonderfall ohne kursbeschreibung-Spalte ab:
 # offene Sprachwerte sollen dann trotzdem ueber OpenAI aufgeloest werden.
 test_that("detect_missing_languages behandelt fehlende kursbeschreibung-Spalte als komplett NA", {

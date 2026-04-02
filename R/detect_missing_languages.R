@@ -66,6 +66,16 @@ detect_missing_languages <- function(raw_data,
     )
   }
 
+  normalize_missing_character <- function(x) {
+    if (!is.character(x)) {
+      return(x)
+    }
+
+    x_trimmed <- trimws(x)
+    x_trimmed[x_trimmed == ""] <- NA_character_
+    x_trimmed
+  }
+
   # Merkt sich Spalten, die nur fuer die interne Verarbeitung erzeugt wurden.
   created_helper_cols <- character()
 
@@ -83,17 +93,24 @@ detect_missing_languages <- function(raw_data,
     raw_data[[sprache_col]] <- NA_character_
   }
 
+  raw_data[[titel_col]] <- normalize_missing_character(raw_data[[titel_col]])
+  raw_data[[sprache_col]] <- normalize_missing_character(raw_data[[sprache_col]])
+
   # Wenn keine Kursbeschreibung mitgegeben wurde, behandeln wir sie intern als komplett fehlend.
   if (!kursbeschreibung_col %in% names(raw_data)) {
     raw_data[[kursbeschreibung_col]] <- NA_character_
     created_helper_cols <- c(created_helper_cols, kursbeschreibung_col)
   }
 
+  raw_data[[kursbeschreibung_col]] <- normalize_missing_character(raw_data[[kursbeschreibung_col]])
+
   # Diese Spalte wird nur benoetigt, wenn cld3 fuer offene Beschreibungen laeuft.
   if (!kursbeschreibung_sprach_col %in% names(raw_data)) {
     raw_data[[kursbeschreibung_sprach_col]] <- NA_character_
     created_helper_cols <- c(created_helper_cols, kursbeschreibung_sprach_col)
   }
+
+  raw_data[[kursbeschreibung_sprach_col]] <- normalize_missing_character(raw_data[[kursbeschreibung_sprach_col]])
 
   # Vor jeder neuen Erkennung werden bekannte Sprachwerte per Titel aus der DB uebernommen.
   if (!is.null(db_data_path) && file.exists(db_data_path) && titel_col %in% names(raw_data)) {
@@ -128,7 +145,6 @@ detect_missing_languages <- function(raw_data,
   # Diese Zeilen koennen nur ueber den Titel erkannt werden, weil keine Beschreibung vorliegt.
   title_only_idx <- is.na(raw_data[[sprache_col]]) &
     !is.na(raw_data[[titel_col]]) &
-    raw_data[[titel_col]] != "" &
     is.na(raw_data[[kursbeschreibung_col]])
 
   title_only_idx_before <- title_only_idx
@@ -170,7 +186,9 @@ detect_missing_languages <- function(raw_data,
           is.na(.data[[kursbeschreibung_sprach_col]]),
         cld3::detect_language(.data[[kursbeschreibung_col]]),
         .data[[kursbeschreibung_sprach_col]]
-      ),
+      )
+    ) %>%
+    dplyr::mutate(
       !!sprache_col := dplyr::if_else(
         is.na(.data[[sprache_col]]) &
           !is.na(.data[[kursbeschreibung_sprach_col]]),
@@ -180,6 +198,35 @@ detect_missing_languages <- function(raw_data,
     )
 
   cld3_resolved_n <- sum(!is.na(raw_data[[kursbeschreibung_sprach_col]][cld3_idx_before]))
+
+  # Fallback fuer Zeilen, bei denen cld3 die Sprache nicht erkennen konnte
+  # (cld3 lieferte NA zurueck). Diese haben eine Kursbeschreibung, aber
+  # weiterhin kein sprache_col. Wir verwenden den Titel fuer OpenAI.
+  cld3_fallback_idx <- is.na(raw_data[[sprache_col]]) &
+    !is.na(raw_data[[kursbeschreibung_col]]) &
+    !is.na(raw_data[[titel_col]])
+
+  if (any(cld3_fallback_idx)) {
+    if (Sys.getenv("OPENAI_API_KEY") == "") {
+      warning(
+        "Es gibt Zeilen fuer den cld3-Fallback via OpenAI, aber OPENAI_API_KEY ist nicht gesetzt. ",
+        "Diese Zeilen bleiben in `sprache_recoded` unveraendert.",
+        call. = FALSE
+      )
+    } else {
+      cld3_fallback_data <- raw_data[cld3_fallback_idx, , drop = FALSE]
+      cld3_fallback_data <- detect_lang_with_openai(
+        df = cld3_fallback_data,
+        spalte = titel_col,
+        db_data_path = db_data_path,
+        export_path = export_path,
+        batch_size = batch_size
+      )
+      raw_data[[sprache_col]][cld3_fallback_idx] <- cld3_fallback_data[[sprache_col]]
+      openai_resolved_n <- openai_resolved_n +
+        sum(!is.na(raw_data[[sprache_col]][cld3_fallback_idx]))
+    }
+  }
 
   message(sprintf(
     "%d Zeilen wurden ueber den normalen Weg mit cld3 bearbeitet.",
