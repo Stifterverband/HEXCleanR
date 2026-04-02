@@ -1,5 +1,7 @@
 # HEXCleanR 0.5.20
 
+Bugfix: Sprachen werden ohne umlaute codiert. Das führt zu Problemen beim Sicherheitscheck, der z.B. `Türkisch` nicht `Tuerkisch` erwartet.
+
 # HEXCleanR 0.5.19
 
 * `detect_missing_languages()` verarbeitet nun auch Zeilen, bei denen `cld3` trotz vorhandener `kursbeschreibung` keine Sprache erkennen konnte (z. B. bei formatiertem oder sehr kurzem Text). Diese Fälle werden jetzt als Fallback über den `titel` an OpenAI weitergegeben, statt unbearbeitet liegenzubleiben.
