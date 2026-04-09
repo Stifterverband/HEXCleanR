@@ -1,5 +1,8 @@
 # HEXCleanR 0.5.19
 
+* `plot_na_balloons()` visualisiert fehlende Werte nun relativ zur Gruppengröße statt als absolute Anzahl, sodass (Semester-)Gruppen mit mehr Zeilen nicht mehr automatisch auffälliger erscheinen.
+* `plot_na_balloons()` verwendet standardmäßig `semester` als Gruppierungsvariable, lässt aber weiterhin beliebige Gruppierungsvariablen über `grp_var` zu.
+
 # HEXCleanR 0.5.18
 
 * Neue Funktion `create_codebook_and_db_data()`, um aus `raw_data` und `raw_data_fs` ein `codebook` sowie einen `db_data`-Datensatz im erwarteten HEX-Format zu erzeugen. Die Funktion prueft nun strikt, ob alle benoetigten Spalten vorhanden sind, und setzt nur die fachlichen Metadatenfelder (`lehr_und_forschungsbereich`, `studienbereich`, `faechergruppe`, `luf_code`, `stub_code`, `fg_code`, `matchingart`) initial auf `NA`.
