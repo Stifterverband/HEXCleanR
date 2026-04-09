@@ -2,12 +2,12 @@
 % Please edit documentation in R/plot_na_balloons.R
 \name{plot_na_balloons}
 \alias{plot_na_balloons}
-\title{Visualisiert fehlende Werte pro Variable und Gruppierung als Balloon Plot}
+\title{Visualisiert relative fehlende Werte pro Variable und Gruppierung als Balloon Plot}
 \usage{
 plot_na_balloons(
   data,
-  grp_var,
-  title = "Fehlende Zeilen pro Variable und Semester",
+  grp_var = NULL,
+  title = "Anteil fehlender Zeilen pro Variable und Semester",
   max_size = 18,
   low_fill = "#ffffff",
   high_fill = "#e20000",
@@ -18,17 +18,18 @@ plot_na_balloons(
 \arguments{
 \item{data}{Ein \code{data.frame} oder \code{tibble} mit den zu analysierenden Daten.}
 
-\item{grp_var}{Unquotierter Spaltenname mit der Gruppierungsvariable.}
+\item{grp_var}{Unquotierter Spaltenname mit der Gruppierungsvariable.
+Standardmaessig wird \code{semester} verwendet.}
 
 \item{title}{Titel des Plots.}
 
 \item{max_size}{Maximale Punktgroesse fuer die Groessenskalierung.}
 
-\item{low_fill}{Farbe fuer niedrige NA-Anzahlen.}
+\item{low_fill}{Farbe fuer niedrige NA-Anteile.}
 
-\item{high_fill}{Farbe fuer hohe NA-Anzahlen.}
+\item{high_fill}{Farbe fuer hohe NA-Anteile.}
 
-\item{show_labels}{Logisch; wenn \code{TRUE}, werden Werte groesser 0 als Text im
+\item{show_labels}{Logisch; wenn \code{TRUE}, werden Werte groesser 0 als Prozentwert im
 Punkt angezeigt. Standardmaessig werden keine Zahlen eingeblendet.}
 
 \item{print_table}{Logisch; wenn \code{TRUE}, wird die aggregierte NA-Tabelle
@@ -40,8 +41,8 @@ Ein \code{ggplot}-Objekt.
 }
 \description{
 Die Funktion zaehlt fehlende Werte (\code{NA}) pro Variable und Gruppierung und
-visualisiert diese als Balloon Plot. Die Kreisgroesse und -farbe kodieren die
-Anzahl fehlender Werte, optional werden die absoluten Werte als Text in den
-Kreisen angezeigt. List-Spalten werden vor der Umformung automatisch
+setzt diese ins Verhaeltnis zur Gruppengroesse. Die Kreisgroesse und -farbe
+kodieren den Anteil fehlender Werte, optional werden die Prozentwerte als Text
+in den Kreisen angezeigt. List-Spalten werden vor der Umformung automatisch
 ausgeschlossen.
 }

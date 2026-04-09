@@ -9,6 +9,7 @@
 library(testthat)
 library(HEXCleanR)
 
+devtools::load_all()
 testthat::test_local()
 
 # Beispielaufruf mit 3 Key-Variablen
