@@ -2,62 +2,100 @@
 % Please edit documentation in R/check_distinct_level_change_df.r
 \name{check_distinct_level_change_df}
 \alias{check_distinct_level_change_df}
-\title{Prüft Distinct-Werte-Änderungen für alle Variablen eines Datensatzes}
+\title{Prueft Veraenderungen in der Anzahl unterschiedlicher Werte}
 \usage{
 check_distinct_level_change_df(
   data,
   group_col,
   threshold_low = 0.7,
   threshold_high = 1.5,
-  min_distinct = 5
+  min_distinct = 5,
+  relative = FALSE
 )
 }
 \arguments{
-\item{data}{Ein \code{data.frame} oder \code{tibble} mit den zu prüfenden Daten.}
+\item{data}{Ein \code{data.frame} oder \code{tibble} mit den zu pruefenden Daten.}
 
-\item{group_col}{Ungequoteter Spaltenname; Gruppierungsvariable (z. B. \code{semester}).
-Die Funktion verwendet \code{rlang::ensym()} zur Auswertung.}
+\item{group_col}{Ungequoteter Spaltenname der Gruppierungsvariable
+(z. B. \code{semester}).}
 
-\item{threshold_low}{Numerischer unterer Schwellenwert für die Prüfung (z. B. 0.70).}
+\item{threshold_low}{Untere Grenze fuer den Vergleich mit dem Median
+(Standard: 0.70).}
 
-\item{threshold_high}{Numerischer oberer Schwellenwert für die Prüfung (z. B. 1.50).}
+\item{threshold_high}{Obere Grenze fuer den Vergleich mit dem Median
+(Standard: 1.50).}
 
-\item{min_distinct}{Ganzzahliger Minimalwert für den Median der Anzahl unterschiedlicher
-Werte, unterhalb dessen eine Variable nicht geprüft wird (Standard: 5).}
+\item{min_distinct}{Mindestanzahl unterschiedlicher Werte im Median.
+Variablen mit sehr wenigen Auspraegungen werden nicht geprueft
+(Standard: 5).}
+
+\item{relative}{Logisch. Wenn \code{FALSE}, wird wie bisher mit der absoluten Zahl
+unterschiedlicher Werte gearbeitet. Wenn \code{TRUE}, wird stattdessen
+\code{n_unique / Gruppengroesse} verwendet. Standard ist \code{FALSE}.}
 }
 \value{
-Ein \code{tibble} mit den markierten Abweichungen. Die Ausgabe enthält
-mindestens die Spalten:
+Ein \code{tibble} mit den auffaelligen Abweichungen. Die Ausgabe enthaelt
+unter anderem:
 \itemize{
-\item \code{status}: Textueller Status (\verb{negativ abweichend}, \verb{positiv abweichend}, \code{NORMAL})
-\item \code{variable}: Name der geprüften Variable
-\item \code{semester}: Wert der Gruppierungsvariable (Originalname in der Ausgabe \code{semester})
-\item \code{unique_found}: Gefundene Anzahl eindeutiger Werte in der Gruppe
-\item \code{unique_med}: Median der eindeutigen Werte über alle Gruppen
-\item \code{faktor}: Verhältnis \code{unique_found / unique_med} (gerundet)
+\item \code{status}: Richtung der Abweichung
+\item \code{variable}: gepruefte Variable
+\item \code{semester}: Wert der Gruppierungsvariable
+\item \code{unique_found}: verwendete Kennzahl der Gruppe
+\item \code{unique_med}: Median dieser Kennzahl ueber alle Gruppen
+\item \code{faktor}: Verhaeltnis von \code{unique_found} zu \code{unique_med}
 }
 
-Wenn keine Auffälligkeiten gefunden werden, gibt die Funktion ein leeres
-\code{tibble} (invisibly) zurück und schreibt eine Erfolgsmeldung.
+Wenn keine Auffaelligkeiten gefunden werden, wird ein leeres \code{tibble}
+zurueckgegeben.
 }
 \description{
-Diese Hilfsfunktion ruft intern für jede Nicht-Gruppierungsvariable
-\code{check_distinct_level_change()} auf und fasst die Ergebnisse zu einem
-gemeinsamen \code{tibble} zusammen. Standardmäßig werden nur die Einträge
-zurückgegeben, die als auffällig markiert (\code{flagged == TRUE}) sind.
+Die Funktion betrachtet fuer jede Variable die Zahl unterschiedlicher Werte
+pro Gruppe und vergleicht sie mit dem Median ueber alle Gruppen. So lassen
+sich Gruppen finden, die deutlich weniger oder deutlich mehr Vielfalt
+aufweisen als die anderen.
 }
 \details{
-Für jede Spalte in \code{data}, die nicht der \code{group_col} entspricht,
-wird die Anzahl unterschiedlicher Werte pro Gruppe berechnet. Als Referenz
-dient der Median der Anzahl unterschiedlicher Werte über alle Gruppen.
-Liegt die relative Abweichung vom Median außerhalb der Intervalle
-\code{threshold_low} .. \code{threshold_high}, wird dieser Fall als auffällig
+Fuer jede Variable ausser \code{group_col} wird pro Gruppe eine Kennzahl
+berechnet: entweder die absolute Anzahl unterschiedlicher Werte oder, bei
+\code{relative = TRUE}, deren relativer Anteil an der Gruppengroesse. Diese Kennzahl wird
+mit dem Median ueber alle Gruppen verglichen. Liegt der Quotient unter
+\code{threshold_low} oder ueber \code{threshold_high}, wird die Gruppe als auffaellig
 markiert.
+
+\code{relative = TRUE} ist besonders dann hilfreich, wenn sich die Gruppengroessen
+stark unterscheiden. In solchen Faellen haben groessere Gruppen oft schon
+allein wegen ihrer Hoehe mehr unterschiedliche Werte und werden im absoluten
+Modus schneller auffaellig. Der relative Modus reduziert diese Verzerrung.
+
+Gleichzeitig aendert sich damit die Interpretation: Ein Flag weist dann nicht
+mehr primaer auf eine Veraenderung der absoluten Anzahl von Auspraegungen hin,
+sondern auf eine Veraenderung der relativen Vielfalt innerhalb einer Gruppe.
+Wenn feste Kategorien erwartet werden und vor allem geprueft werden soll, ob
+Kategorien hinzugekommen oder weggefallen sind, ist \code{relative = FALSE} oft
+die passendere Wahl.
+
+\code{relative = TRUE} ist sinnvoll:
+Stell dir vor, ein neues Semester hat 4.000 Kurse und ein altes nur 800.
+Bei der Variable \code{titel} wird das grosse Semester fast automatisch mehr
+unterschiedliche Werte haben, einfach weil mehr Kurse vorliegen. Wenn du
+hier Auffaelligkeiten pruefen willst, ist die relative Vielfalt sinnvoller,
+also etwa \code{n_unique / n_group}. Dann fragst du: Hat dieses Semester im
+Verhaeltnis zu seiner Groesse ungewoehnlich viele oder wenige unterschiedliche
+Titel?
+
+\code{relative = FALSE} ist sinnvoll:
+Stell dir eine Variable wie \code{abschlussart} mit Kategorien wie \code{Bachelor},
+\code{Master}, \code{Staatsexamen}, \code{Promotion} vor. Hier ist oft gerade die absolute
+Zahl vorhandener Kategorien interessant. Wenn in einem Semester ploetzlich
+nur noch 2 statt 4 Kategorien vorkommen, willst du das direkt sehen. Die
+relative Kennzahl hilft hier wenig, weil nicht die Gruppengroesse
+entscheidend ist, sondern ob Kategorien fehlen oder neu auftauchen.
 }
 \examples{
 \dontrun{
   check_distinct_level_change_df(db_data_universitaet_jena, semester)
   check_distinct_level_change_df(my_data, semester, threshold_low = 0.6, threshold_high = 1.4)
+  check_distinct_level_change_df(my_data, semester, relative = TRUE)
 }
 
 }
