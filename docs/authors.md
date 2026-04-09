@@ -10,13 +10,13 @@ Source:
 [`DESCRIPTION`](https://github.com/Stifterverband/HEXCleanR/blob/HEAD/DESCRIPTION)
 
 Hückstädt M (2026). *HEXCleanR: Werkzeuge zur Datenbereinigung im
-HEX-Projekt*. R package version 0.5.18,
+HEX-Projekt*. R package version 0.5.19,
 <https://github.com/Stifterverband/HEXCleanR>.
 
     @Manual{,
       title = {HEXCleanR: Werkzeuge zur Datenbereinigung im HEX-Projekt},
       author = {Malte Hückstädt},
       year = {2026},
-      note = {R package version 0.5.18},
+      note = {R package version 0.5.19},
       url = {https://github.com/Stifterverband/HEXCleanR},
     }

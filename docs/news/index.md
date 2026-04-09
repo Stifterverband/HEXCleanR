@@ -1,5 +1,15 @@
 # Changelog
 
+## HEXCleanR 0.5.19
+
+- [`plot_na_balloons()`](https://github.com/Stifterverband/HEXCleanR/reference/plot_na_balloons.md)
+  visualisiert fehlende Werte nun relativ zur Gruppengröße statt als
+  absolute Anzahl, sodass (Semester-)Gruppen mit mehr Zeilen nicht mehr
+  automatisch auffälliger erscheinen.
+- [`plot_na_balloons()`](https://github.com/Stifterverband/HEXCleanR/reference/plot_na_balloons.md)
+  verwendet standardmäßig `semester` als Gruppierungsvariable, lässt
+  aber weiterhin beliebige Gruppierungsvariablen über `grp_var` zu.
+
 ## HEXCleanR 0.5.18
 
 - Neue Funktion
