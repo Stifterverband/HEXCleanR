@@ -1,18 +1,18 @@
-# Visualisiert fehlende Werte pro Variable und Gruppierung als Balloon Plot
+# Visualisiert relative fehlende Werte pro Variable und Gruppierung als Balloon Plot
 
 Die Funktion zaehlt fehlende Werte (`NA`) pro Variable und Gruppierung
-und visualisiert diese als Balloon Plot. Die Kreisgroesse und -farbe
-kodieren die Anzahl fehlender Werte, optional werden die absoluten Werte
-als Text in den Kreisen angezeigt. List-Spalten werden vor der Umformung
-automatisch ausgeschlossen.
+und setzt diese ins Verhaeltnis zur Gruppengroesse. Die Kreisgroesse und
+-farbe kodieren den Anteil fehlender Werte, optional werden die
+Prozentwerte als Text in den Kreisen angezeigt. List-Spalten werden vor
+der Umformung automatisch ausgeschlossen.
 
 ## Usage
 
 ``` r
 plot_na_balloons(
   data,
-  grp_var,
-  title = "Fehlende Zeilen pro Variable und Semester",
+  grp_var = NULL,
+  title = "Anteil fehlender Zeilen pro Variable und Semester",
   max_size = 18,
   low_fill = "#ffffff",
   high_fill = "#e20000",
@@ -29,7 +29,8 @@ plot_na_balloons(
 
 - grp_var:
 
-  Unquotierter Spaltenname mit der Gruppierungsvariable.
+  Unquotierter Spaltenname mit der Gruppierungsvariable. Standardmaessig
+  wird `semester` verwendet.
 
 - title:
 
@@ -41,15 +42,15 @@ plot_na_balloons(
 
 - low_fill:
 
-  Farbe fuer niedrige NA-Anzahlen.
+  Farbe fuer niedrige NA-Anteile.
 
 - high_fill:
 
-  Farbe fuer hohe NA-Anzahlen.
+  Farbe fuer hohe NA-Anteile.
 
 - show_labels:
 
-  Logisch; wenn `TRUE`, werden Werte groesser 0 als Text im Punkt
+  Logisch; wenn `TRUE`, werden Werte groesser 0 als Prozentwert im Punkt
   angezeigt. Standardmaessig werden keine Zahlen eingeblendet.
 
 - print_table:

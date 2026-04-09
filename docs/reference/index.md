@@ -54,8 +54,8 @@
   Laedt `course_data`-Dateien rekursiv aus einem Hochschulordner
 
 - [`plot_na_balloons()`](https://github.com/Stifterverband/HEXCleanR/reference/plot_na_balloons.md)
-  : Visualisiert fehlende Werte pro Variable und Gruppierung als Balloon
-  Plot
+  : Visualisiert relative fehlende Werte pro Variable und Gruppierung
+  als Balloon Plot
 
 - [`remove_semantic_na_values()`](https://github.com/Stifterverband/HEXCleanR/reference/remove_semantic_na_values.md)
   : Setzt Werte einer String-Variable NA, wenn diese weniger als 20

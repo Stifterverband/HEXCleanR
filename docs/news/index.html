@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">HEXCleanR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.18</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.19</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,13 @@
       <small>Source: <a href="https://github.com/Stifterverband/HEXCleanR/blob/HEAD/NEWS.md"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.19" id="hexcleanr-0519">HEXCleanR 0.5.19<a class="anchor" aria-label="anchor" href="#hexcleanr-0519"></a></h2>
+<ul><li>
+<code><a href="../reference/plot_na_balloons.html">plot_na_balloons()</a></code> visualisiert fehlende Werte nun relativ zur Gruppengröße statt als absolute Anzahl, sodass (Semester-)Gruppen mit mehr Zeilen nicht mehr automatisch auffälliger erscheinen.</li>
+<li>
+<code><a href="../reference/plot_na_balloons.html">plot_na_balloons()</a></code> verwendet standardmäßig <code>semester</code> als Gruppierungsvariable, lässt aber weiterhin beliebige Gruppierungsvariablen über <code>grp_var</code> zu.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.18" id="hexcleanr-0518">HEXCleanR 0.5.18<a class="anchor" aria-label="anchor" href="#hexcleanr-0518"></a></h2>
 <ul><li>Neue Funktion <code><a href="../reference/create_codebook_and_db_data.html">create_codebook_and_db_data()</a></code>, um aus <code>raw_data</code> und <code>raw_data_fs</code> ein <code>codebook</code> sowie einen <code>db_data</code>-Datensatz im erwarteten HEX-Format zu erzeugen. Die Funktion prueft nun strikt, ob alle benoetigten Spalten vorhanden sind, und setzt nur die fachlichen Metadatenfelder (<code>lehr_und_forschungsbereich</code>, <code>studienbereich</code>, <code>faechergruppe</code>, <code>luf_code</code>, <code>stub_code</code>, <code>fg_code</code>, <code>matchingart</code>) initial auf <code>NA</code>.</li>
