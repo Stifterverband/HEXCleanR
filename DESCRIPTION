@@ -25,7 +25,8 @@ Imports:
     stringr,
     reticulate,
     tibble,
-    tidyr
+    tidyr,
+    textutils
 Suggests: 
     quarto,
     testthat (>= 3.0.0),
