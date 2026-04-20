@@ -27,16 +27,22 @@
 
 remove_html_tags <- function(df) {
 
-  .requireNamespace(
-    pkg = "textutils",
-    minVersion = NULL,
-    stopOnFALSE = TRUE,
-    messageStart = "Package 'textutils' is required for remove_html_tags function. Please install it using install.packages('textutils')."
+  if (!requireNamespace("textutils", quietly = TRUE)) {
+    stop("Package 'textutils' is required for remove_html_tags(). Please install it using install.packages('textutils').")
+  }
+
+  html_pattern <- paste(
+    "<[^>]+>",            # beliebiges HTML-Tag z.B. <p>, <br/>
+    "<!--.*?-->",         # HTML-Kommentare
+    "&[a-zA-Z]+;",       # benannte Entitäten z.B. &amp; &uuml;
+    "&#[0-9]+;",         # dezimale numerische Entitäten z.B. &#160;
+    "&#x[0-9a-fA-F]+;",  # hexadezimale numerische Entitäten z.B. &#x00FC;
+    sep = "|"
   )
 
   html_cols <- df %>%
     select(where(is.character)) %>%
-    summarise(across(everything(), ~ any(str_detect(., "<|&lt;|&gt;|&#"), na.rm = TRUE))) %>%
+    summarise(across(everything(), ~ any(str_detect(., html_pattern), na.rm = TRUE))) %>%
     pivot_longer(everything()) %>%
     filter(value) %>%
     pull(name)
@@ -57,7 +63,7 @@ remove_html_tags <- function(df) {
     df <- df %>%
       mutate(!!sym(col) := {
         x <- .data[[col]]
-        has_html <- str_detect(x, "<|&lt;|&gt;|&#") & !is.na(x)
+        has_html <- str_detect(x, html_pattern) & !is.na(x)
         x[has_html] <- decode_and_remove(x[has_html])
         x
       })
