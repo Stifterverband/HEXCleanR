@@ -27,7 +27,8 @@ Imports:
     tibble,
     tidyr,
     textutils, 
-    naniar
+    naniar, 
+    magrittr
 Suggests: 
     quarto,
     testthat (>= 3.0.0),
