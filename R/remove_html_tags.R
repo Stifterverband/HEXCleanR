@@ -40,11 +40,11 @@ remove_html_tags <- function(df) {
     sep = "|"
   )
 
-  html_cols <- df %>%
-    select(where(is.character)) %>%
-    summarise(across(everything(), ~ any(str_detect(., html_pattern), na.rm = TRUE))) %>%
-    pivot_longer(everything()) %>%
-    filter(value) %>%
+  html_cols <- df |>
+    select(where(is.character)) |>
+    summarise(across(everything(), ~ any(str_detect(., html_pattern), na.rm = TRUE))) |>
+    pivot_longer(everything()) |>
+    filter(value) |>
     pull(name)
 
   if (length(html_cols) == 0) {
@@ -52,7 +52,7 @@ remove_html_tags <- function(df) {
     return(df)
   }
 
-  decode_and_remove <- function(x) HTMLdecode(x) %>% HTMLrm()
+  decode_and_remove <- function(x) HTMLdecode(x) |> HTMLrm()
 
   n_cols <- length(html_cols)
 
@@ -60,7 +60,7 @@ remove_html_tags <- function(df) {
     col <- html_cols[i]
     message(sprintf("[%d/%d] Cleaning HTML from column: %s", i, n_cols, col))
 
-    df <- df %>%
+    df <- df |>
       mutate(!!sym(col) := {
         x <- .data[[col]]
         has_html <- str_detect(x, html_pattern) & !is.na(x)
