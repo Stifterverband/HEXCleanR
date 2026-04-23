@@ -32,11 +32,11 @@ remove_html_tags <- function(df) {
   }
 
   html_pattern <- paste(
-    "<[^>]+>",            # beliebiges HTML-Tag z.B. <p>, <br/>
+    "<[^>]+>",            # beliebiges HTML-Tag 
     "<!--.*?-->",         # HTML-Kommentare
-    "&[a-zA-Z]+;",       # benannte Entitäten z.B. &amp; &uuml;
-    "&#[0-9]+;",         # dezimale numerische Entitäten z.B. &#160;
-    "&#x[0-9a-fA-F]+;",  # hexadezimale numerische Entitäten z.B. &#x00FC;
+    "&[a-zA-Z]+;",       # benannte Entitäten 
+    "&#[0-9]+;",         # dezimale numerische Entitäten 
+    "&#x[0-9a-fA-F]+;",  # hexadezimale numerische Entitäten
     sep = "|"
   )
 
